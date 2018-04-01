@@ -1,0 +1,11 @@
+var express = require('express');
+//var passportoption = require("./../../libs/auth");
+var auth = require("./../../libs/authentication");
+passport = require('passport');
+var _ = require("lodash");
+var ethUtil = require('ethereumjs-util');
+var router = express.Router();
+router.post("/", auth.login);
+router.post('/sign',auth.MetaSign);
+router.post('/register',auth.register);
+module.exports=router;
