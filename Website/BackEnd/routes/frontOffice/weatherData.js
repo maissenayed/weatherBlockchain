@@ -93,7 +93,9 @@ router.get('/fullMap/:country', function(req, res, next) {
 
             }},
     ])
+
         .exec((err,weatherstation) => {
+
             if (err){return console.log(err)}
             let pointstemp = [];
             let pointsHumidty = [];
@@ -138,11 +140,17 @@ router.get('/fullMap/:country/:state', function(req, res, next) {
     let query= weatherData;
     query.aggregate([
         {$match: {'timestamp':{ $gt: new Date(Date.now() - (1000 * 60 * 60 * 24)) },'coord.country_code':country,'coord.state_code':state}},
-        { $limit : 10 }
+        { $limit : 10 },
+
     ])
         .exec((err,weatherstation) => {
             if (err){return console.log(err)}
-            res.json(weatherstation);
+            State.populate(weatherstation, {path: 'state'}, function(err, weatherstationS) {
+                // Your populated translactions are inside populatedTransactions
+                console.log(weatherstationS);
+                res.json(weatherstationS);
+            });
+
 
 
         });
