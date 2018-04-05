@@ -1,7 +1,7 @@
 var jwt = require('jsonwebtoken');
 var User = require('../models/userSchema');
 var authConfig = require('./jwtConfig');
-
+var ethUtil = require('ethereumjs-util');
 // set jwt user info
 function setUserInfo(request){
     return {
@@ -52,6 +52,7 @@ exports.login = function(req, res, next){
             }*/
             let userInfo = setUserInfo(user);
             let token = jwt.sign(userInfo,authConfig.jwtOptions.secretOrKey,{ expiresIn: 10080});
+            res.set('Authorization',  token);
             res.json({message: "ok", token: token,userInfo:userInfo});
         }
     });
@@ -156,31 +157,27 @@ exports.MetaSign = function(req, res){
 
     // Determine if it is the same address as 'owner'
     var match = false;
-    if (addr == owner_adr) { match = true;
+    if (addr == owner_adr) {
+        match = true;
 
         // usually this would be a database call:
-        User.findOne({wallet_adr: new RegExp('^'+owner_adr+'$', "i")}, function(err, user) {
-            if(err){
+        User.findOne({wallet_adr: new RegExp('^' + owner_adr + '$', "i")}, function (err, user) {
+            if (err) {
+
                 res.send(err);
             }
-            if(!user){
+            if (!user) {
                 res.sendStatus(404);
-            }else {
+            } else {
 
                 let userInfo = setUserInfo(user);
-                let token = jwt.sign(userInfo,authConfig.jwtOptions.secretOrKey,{ expiresIn: 10080});
-                res.json({message: "ok", token: token,userInfo:userInfo});
+                let token = jwt.sign(userInfo, authConfig.jwtOptions.secretOrKey, {expiresIn: 10080});
+                res.json({message: "ok", token: token, userInfo: userInfo});
             }
         });
 
+
     }
-
-
-
-
-
-
-
 
 
       }

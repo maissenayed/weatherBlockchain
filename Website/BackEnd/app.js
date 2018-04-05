@@ -12,7 +12,7 @@ var authConfig = require('./libs/jwtConfig');
 var passport = require("passport");
 var app = express();
 var price = require('./api/price');
-
+var cors = require('cors');
 
 //mongoose config :
 var db=require('./database_connector/connector');
@@ -37,14 +37,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 var jwtEnable =authConfig.passport.authenticate('jwt', { session: false });
-var allowCrossDomain = function(req, res, next) {
+/*var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
+    res.header('Access-Control-Expose-Headers', 'Authorization');
     next();
-}
-
-app.use(allowCrossDomain);
+}*/
+app.use(cors());
+//app.use(allowCrossDomain);
 app.use('/', index);
 app.use('/users',users);
 app.use('/weatherData', weatherData);
