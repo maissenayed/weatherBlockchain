@@ -1,7 +1,7 @@
 var jwt = require('jsonwebtoken');
 var User = require('../models/userSchema');
 var authConfig = require('./jwtConfig');
-
+var ethUtil = require('ethereumjs-util');
 // set jwt user info
 function setUserInfo(request){
     return {
@@ -24,17 +24,17 @@ var UUID=function generateUUID() {
 }
 //random uiid function for api key
 exports.uuid=UUID();
-   /*login function*/
+/*login function*/
 
 exports.login = function(req, res, next){
-     console.log(req.body);
+    console.log(req.body);
 
     if(req.body.name && req.body.password){
         var username = req.body.name;
         var password = req.body.password;
     }
     // usually this would be a database call:
-     User.findOne({username: new RegExp('^'+username+'$', "i")}, function(err, user) {
+    User.findOne({username: new RegExp('^'+username+'$', "i")}, function(err, user) {
         if(err){
             res.send(err);
         }
@@ -52,6 +52,7 @@ exports.login = function(req, res, next){
             }*/
             let userInfo = setUserInfo(user);
             let token = jwt.sign(userInfo,authConfig.jwtOptions.secretOrKey,{ expiresIn: 10080});
+            res.set('Authorization',  token);
             res.json({message: "ok", token: token,userInfo:userInfo});
         }
     });
@@ -76,7 +77,7 @@ exports.registerUser = function(req, res, next){
         return res.status(422).send({error: 'You must enter a password'});
     }
 
-   User.findOne({username: new RegExp('^'+username+'$', "i")}, function(err, existingUser){
+    User.findOne({username: new RegExp('^'+username+'$', "i")}, function(err, existingUser){
         if(err){
             res.status(422).send({error: 'dude'});
         }
@@ -85,12 +86,12 @@ exports.registerUser = function(req, res, next){
             res.status(422).send({error: 'That UserName is already in use'});
         }else{
             var user = new User({
-            username: username,
-            password: password,
-            wallet_adr: address,
-            role: "client",
-            apiKey: UUID()
-        });
+                username: username,
+                password: password,
+                wallet_adr: address,
+                role: "client",
+                apiKey: UUID()
+            });
             console.log(user);
             user.save(function(err, user){
 
@@ -100,6 +101,7 @@ exports.registerUser = function(req, res, next){
                 }
                 let userInfo = setUserInfo(user);
                 let token = jwt.sign(userInfo,authConfig.jwtOptions.secretOrKey, {expiresIn: 10080});
+                res.set('Authorization',  token);
                 res.json({message: "ok", token: token,userInfo:userInfo});
 
             });}
@@ -115,7 +117,7 @@ exports.roleAuthorization = function(roles){
 
     return function(req, res, next){
         let user = req.user;
-       console.log(user);
+        console.log(user);
         User.findById(user._id, function(err, foundUser){
 
             if(err){
@@ -156,31 +158,28 @@ exports.MetaSign = function(req, res){
 
     // Determine if it is the same address as 'owner'
     var match = false;
-    if (addr == owner_adr) { match = true;
+    if (addr == owner_adr) {
+        match = true;
 
         // usually this would be a database call:
-        User.findOne({wallet_adr: new RegExp('^'+owner_adr+'$', "i")}, function(err, user) {
-            if(err){
+        User.findOne({wallet_adr: new RegExp('^' + owner_adr + '$', "i")}, function (err, user) {
+            if (err) {
+
                 res.send(err);
             }
-            if(!user){
+            if (!user) {
                 res.sendStatus(404);
-            }else {
+            } else {
 
                 let userInfo = setUserInfo(user);
-                let token = jwt.sign(userInfo,authConfig.jwtOptions.secretOrKey,{ expiresIn: 10080});
-                res.json({message: "ok", token: token,userInfo:userInfo});
+                let token = jwt.sign(userInfo, authConfig.jwtOptions.secretOrKey, {expiresIn: 10080});
+                res.set('Authorization',  token);
+                res.json({message: "ok", token: token, userInfo: userInfo});
             }
         });
+
 
     }
 
 
-
-
-
-
-
-
-
-      }
+}
