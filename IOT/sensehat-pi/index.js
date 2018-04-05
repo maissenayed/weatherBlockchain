@@ -4,26 +4,25 @@ var request = require('request');
 IMU = new imu.IMU();
 var dataCollected = {
     "coord": {
-        "lng": 36.866537,
-        "lat": 10.164723,
-        "code": "TN-AR"
+        "lng": 1.39,
+        "lat": 35.0,
+        "state_code": "tu",
+        "country_code": "tn"
     },
     "sys": {
-        "country": "TN",
-        "sunrise": "sunData.sunrise",
-        "sunset": "sunData.sunset"
-    },
-    "weather": {
-        "id": 804.0,
-        "main": "clouds",
-        "description": "overcast clouds"
+        "country":{"oid":"5ab86c20fa40dea638993f50"},
+        "sunrise": "5:30",
+        "sunset": "6:00"
     },
     "main": {
-        "temp": 0,
-        "humidity": 0,
-        "pressure": 0
-    }
+        "temp": 1.5,
+        "humidity": 89.0,
+        "pressure": 1010.3
+    },
+    "timestamp": new Date(),
+    "state": {"oid":"5ab94b9205e4eb8522c4afdc"}
 };
+
 
 
 setInterval(function() {

@@ -11,6 +11,7 @@ var auth = require("./libs/authentication");
 var authConfig = require('./libs/jwtConfig');
 var passport = require("passport");
 var app = express();
+var price = require('./api/price');
 
 
 //mongoose config :
@@ -52,6 +53,8 @@ app.use('/transaction',  transaction);
 app.use('/test',jwtEnable,auth.roleAuthorization(['admin']), test);
 app.use('/auth', login);
 app.use('/api/weatherData', weatherDataApi);
+app.use('/api/price', price);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
