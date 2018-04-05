@@ -31,14 +31,14 @@ app.set('view engine', 'twig');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 var jwtEnable =authConfig.passport.authenticate('jwt', { session: false });
 var allowCrossDomain = function(req, res, next) {
     res.header('Access-Control-Allow-Origin', "*");
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 }
@@ -50,7 +50,7 @@ app.use('/weatherData', weatherData);
 app.use('/weatherStation', weatherStation);
 app.use('/transaction',  transaction);
 app.use('/test',jwtEnable,auth.roleAuthorization(['admin']), test);
-app.use('/login', login);
+app.use('/auth', login);
 app.use('/api/weatherData', weatherDataApi);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

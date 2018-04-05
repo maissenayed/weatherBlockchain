@@ -10,8 +10,7 @@ function setUserInfo(request){
         role: request.role
     };
 }
-//random uiid function for api key
-exports.uuid=function generateUUID() {
+var UUID=function generateUUID() {
     var d = new Date().getTime();
 
     var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c)
@@ -22,9 +21,13 @@ exports.uuid=function generateUUID() {
     });
 
     return uuid;
-   }
+}
+//random uiid function for api key
+exports.uuid=UUID();
    /*login function*/
+
 exports.login = function(req, res, next){
+     console.log(req.body);
 
     if(req.body.name && req.body.password){
         var username = req.body.name;
@@ -36,19 +39,17 @@ exports.login = function(req, res, next){
             res.send(err);
         }
         if(!user){
-            res.sendStatus(404);
+            res.sendStatus(401);
         }else {
             user.comparePassword(password, function(err, isMatch) {
                 console.log("isMatch", isMatch);
-                if (err) next(err);
-
                 if (!isMatch) {
                     res.status(401).json({message:"passwords did not match"});
                 }
             });
-            if(user.apiExpirationDate !==  new Date().getTime()){
+            /*if(user.apiExpirationDate <=  new Date().getTime()){
                 return res.status(422).send({error: 'Your API validation has expired'});
-            }
+            }*/
             let userInfo = setUserInfo(user);
             let token = jwt.sign(userInfo,authConfig.jwtOptions.secretOrKey,{ expiresIn: 10080});
             res.json({message: "ok", token: token,userInfo:userInfo});
@@ -63,51 +64,50 @@ exports.login = function(req, res, next){
 
 }
 //register function
-exports.register = function(req, res, next){
-
-    var username = req.body.username;
-    var password = req.body.password;
-    var address = req.body.address;
-
+exports.registerUser = function(req, res, next){
+    console.log(req.body);
+    let username = req.body.name;
+    let password = req.body.password;
+    let address = req.body.address;
     if(!username){
-        return res.status(422).send({error: 'You must enter an UserName bech'});
+        return res.status(422).send({error: 'You must enter an UserName '});
     }
-
     if(!password){
         return res.status(422).send({error: 'You must enter a password'});
     }
 
-    User.findOne({userName: email}, function(err, existingUser){
-
+   User.findOne({username: new RegExp('^'+username+'$', "i")}, function(err, existingUser){
         if(err){
-            return next(err);
+            res.status(422).send({error: 'dude'});
         }
 
         if(existingUser){
-            return res.status(422).send({error: 'That UserName is already in use'});
-        }
-
-        var user = new User({
+            res.status(422).send({error: 'That UserName is already in use'});
+        }else{
+            var user = new User({
             username: username,
             password: password,
             wallet_adr: address,
             role: "client",
-            apiKey: uuid()
+            apiKey: UUID()
         });
+            console.log(user);
+            user.save(function(err, user){
 
-        user.save(function(err, user){
+                if(err){
+                    console.log("dude2");
+                    return  res.status(422).send({error: 'dude2'});
+                }
+                let userInfo = setUserInfo(user);
+                let token = jwt.sign(userInfo,authConfig.jwtOptions.secretOrKey, {expiresIn: 10080});
+                res.json({message: "ok", token: token,userInfo:userInfo});
 
-            if(err){
-                return next(err);
-            }
-
-            let userInfo = setUserInfo(user);
-            let token = jwt.sign(userInfo,authConfig.jwtOptions.secretOrKey, {expiresIn: 10080});
-            res.json({message: "ok", token: token,userInfo:userInfo});
-
-        });
-
+            });}
     });
+
+
+
+
 
 }
 //role authorisation for jwt

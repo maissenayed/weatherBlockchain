@@ -124,7 +124,7 @@ router.get('/fullMap/:country', function(req, res, next) {
 
         });
 });
-//10 last entries of weather data
+//10 last entries of weather dataz
 router.get('/', function(req, res, next) {
     weatherData.find().sort('-timestamp').limit(10)
         .exec((err,weatherstation) => {
@@ -141,7 +141,6 @@ router.get('/fullMap/:country/:state', function(req, res, next) {
     query.aggregate([
         {$match: {'timestamp':{ $gt: new Date(Date.now() - (1000 * 60 * 60 * 24)) },'coord.country_code':country,'coord.state_code':state}},
         { $limit : 10 },
-
     ])
         .exec((err,weatherstation) => {
             if (err){return console.log(err)}

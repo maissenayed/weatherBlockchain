@@ -1,0 +1,15 @@
+{
+  "name": "watcherweb3js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "270bytes",
+  "license": "ISC",
+  "dependencies": {
+    "request": "^2.85.0",
+    "web3": "^0.20.3"
+  }
+}
