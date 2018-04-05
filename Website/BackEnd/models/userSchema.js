@@ -16,6 +16,10 @@ var UserSchema=mongoose.Schema({
         default: 'client'
     }
 });
+UserSchema.pre('update',function (next) {
+    this.findOneAndUpdate({},{password: bcrypt.hashSync(this.getUpdate().$set.password,10)})
+     next()
+ });
 // referenced website : https://stackoverflow.com/questions/14588032/mongoose-password-hashing
 UserSchema.pre('save', function (next) {
     var user = this;
