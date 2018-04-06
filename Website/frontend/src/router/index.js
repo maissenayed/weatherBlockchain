@@ -16,6 +16,7 @@ import Login from '@/views/session/Login'
 import LockScreen from '@/views/session/LockScreen'
 import AdminUserList from '@/views/BackOffice/userList'
 import Transaction from '@/views/BackOffice/Transaction'
+import WeatherStation from '@/views/BackOffice/WeatherStation'
 import WorldMap from '@/views/FrontOffice/worldMap'
 import CountrydMap from '@/views/FrontOffice/countryMap'
 Vue.use(Router)
@@ -77,6 +78,7 @@ export default new Router({
       component: home,
       name: 'home'
     }, { path: '/transactions' , component :Transaction},
+    { path: '/weatherStations' , component :WeatherStation},
     {path:'/map',component:WorldMap},
     {path:'/map/:country',component:CountrydMap,props: true , meta: {
         auth: {roles: 'admin', redirect: '/map/:country', forbiddenRedirect: '/admin/403'}}
