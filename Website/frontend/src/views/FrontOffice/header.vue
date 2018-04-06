@@ -18,7 +18,7 @@
 
 export default {
 
-	    data () {
+      data () {
       return {
         title: 'Your Logo'
       }
@@ -41,11 +41,11 @@ export default {
 
 <style scoped>
 #logo{
-	position: fixed;
+  position: fixed;
 }
 
 #cardbox{
-	display: inline;
+  display: inline;
 }
 
 

@@ -14,6 +14,7 @@ var app = express();
 var price = require('./api/price');
 var cors = require('cors');
 
+
 //mongoose config :
 var db=require('./database_connector/connector');
 var users=require('./routes/backOffice/user');
@@ -24,6 +25,8 @@ var transaction=require('./routes/backOffice/transaction');
 var weatherData=require('./routes/frontOffice/weatherData');
 var weatherDataApi=require('./api/weatherData');
 var login=require('./routes/login/login');
+var country=require('./routes/backOffice/country');
+var state=require('./routes/backOffice/state');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'twig');
@@ -55,6 +58,8 @@ app.use('/test',jwtEnable,auth.roleAuthorization(['admin']), test);
 app.use('/auth', login);
 app.use('/api/weatherData', weatherDataApi);
 app.use('/api/price', price);
+app.use('/country', country);
+app.use('/state', state);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

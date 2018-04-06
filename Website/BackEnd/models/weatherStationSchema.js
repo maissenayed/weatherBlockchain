@@ -5,10 +5,10 @@ var WeatherStationSchema=new Schema({
     status:String,
     age:Number,
     ip_adr:String,
-    coord:{
+    coord:[{
         lng:Number,
         lat:Number
-    },
+    }],
     state:[ {type: Schema.ObjectId, ref: 'State'}]
 });
 module.exports =mongoose.model('weather_station',WeatherStationSchema);

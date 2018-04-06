@@ -5,111 +5,113 @@
       <div class="app-card-content">
 
         <div>
+          <v-layout row wrap align-baseline>
+            <v-flex xs6>
+
+              <v-dialog v-model="dialog" max-width="600px">
+                <v-btn color="primary" dark slot="activator" class="mb-2"
+                       @click.prevent="initUser">New User
+                </v-btn>
+                <v-card>
+
+                  <v-card-title>
+                    <span class="headline">{{ formTitle }}</span>
+
+                  </v-card-title>
+
+                  <v-card-text>
+                    <v-container grid-list-md>
+                      <v-layout wrap>
+                        <v-flex xs12 sm6 md4>
+                          <v-text-field label="Wallet address"
+                                        v-model="editedItem.wallet_adr"></v-text-field>
+                        </v-flex>
+
+                        <v-flex xs12 sm6 md4>
+                          <v-select
+                            :items="ROLES_LIST"
+                            v-model="editedItem.role"
+                            placeholder="Role"
+                            class="input-group--focused"
+                            item-value="text"
+                            color="grey"
+                          ></v-select>
+                        </v-flex>
+                        <v-flex xs12 sm6 md4>
+                          <v-text-field label="API key" v-model="editedItem.apiKey"></v-text-field>
+                        </v-flex>
+                        <v-flex xs12 sm6 md4>
+                          <!--<v-text-field label="API expiration date"
+                                        v-model="editedItem.apiExpirationDate"></v-text-field>-->
+                          <v-menu
+                            ref="menu"
+                            lazy
+                            :close-on-content-click="false"
+                            v-model="menu"
+                            transition="scale-transition"
+                            offset-y
+                            full-width
+                            :nudge-right="40"
+                            min-width="290px"
+                            :return-value.sync="editedItem.apiExpirationDate"
+                          >
+                            <v-text-field
+                              slot="activator"
+                              label="API expires at"
+                              v-model="editedItem.apiExpirationDate"
+                              prepend-icon="event"
+                              readonly
+                            ></v-text-field>
+                            <v-date-picker v-model="editedItem.apiExpirationDate" no-title scrollable>
+                              <v-spacer></v-spacer>
+                              <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+                              <v-btn flat color="primary"
+                                     @click="$refs.menu.save(editedItem.apiExpirationDate)">OK
+                              </v-btn>
+                            </v-date-picker>
+                          </v-menu>
+                        </v-flex>
+                        <v-flex xs12 sm6 md4>
+                          <v-text-field
+                            v-model="editedItem.password"
+                            name="input-10-1"
+                            label="Enter your password"
+                            hint="At least 8 characters"
+                            min="8"
+                            :append-icon="hide_password ? 'visibility' : 'visibility_off'"
+                            :append-icon-cb="() => (hide_password = !hide_password)"
+                            :type="hide_password ? 'password' : 'text'"
+
+                          ></v-text-field>
+                        </v-flex>
+                        <v-flex xs12 sm6 md4>
+                          <v-text-field label="Token balance"
+                                        v-model="editedItem.token_balance"></v-text-field>
+                        </v-flex>
+                      </v-layout>
+                    </v-container>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
+                    <v-btn color="blue darken-1" flat @click.native="save">Save</v-btn>
+                  </v-card-actions>
+                </v-card>
 
 
-          <v-dialog v-model="dialog" max-width="600px">
-            <v-btn color="primary" dark slot="activator" class="mb-2"
-                   @click.prevent="initUser">New User
-            </v-btn>
-            <v-card>
+              </v-dialog>
 
-              <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
-
-              </v-card-title>
-
-              <v-card-text>
-                <v-container grid-list-md>
-                  <v-layout wrap>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field label="Wallet address"
-                                    v-model="editedItem.wallet_adr"></v-text-field>
-                    </v-flex>
-
-                    <v-flex xs12 sm6 md4>
-                      <v-select
-                        :items="ROLES_LIST"
-                        v-model="editedItem.role"
-                        placeholder="Role"
-                        class="input-group--focused"
-                        item-value="text"
-                        color="grey"
-                      ></v-select>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field label="API key" v-model="editedItem.apiKey"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <!--<v-text-field label="API expiration date"
-                                    v-model="editedItem.apiExpirationDate"></v-text-field>-->
-                      <v-menu
-                        ref="menu"
-                        lazy
-                        :close-on-content-click="false"
-                        v-model="menu"
-                        transition="scale-transition"
-                        offset-y
-                        full-width
-                        :nudge-right="40"
-                        min-width="290px"
-                        :return-value.sync="editedItem.apiExpirationDate"
-                      >
-                        <v-text-field
-                          slot="activator"
-                          label="API expires at"
-                          v-model="editedItem.apiExpirationDate"
-                          prepend-icon="event"
-                          readonly
-                        ></v-text-field>
-                        <v-date-picker v-model="editedItem.apiExpirationDate" no-title scrollable>
-                          <v-spacer></v-spacer>
-                          <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-                          <v-btn flat color="primary"
-                                 @click="$refs.menu.save(editedItem.apiExpirationDate)">OK
-                          </v-btn>
-                        </v-date-picker>
-                      </v-menu>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field
-                        v-model="editedItem.password"
-                        name="input-10-1"
-                        label="Enter your password"
-                        hint="At least 8 characters"
-                        min="8"
-                        :append-icon="hide_password ? 'visibility' : 'visibility_off'"
-                        :append-icon-cb="() => (hide_password = !hide_password)"
-                        :type="hide_password ? 'password' : 'text'"
-
-                      ></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field label="Token balance"
-                                    v-model="editedItem.token_balance"></v-text-field>
-                    </v-flex>
-                  </v-layout>
-                </v-container>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
-                <v-btn color="blue darken-1" flat @click.native="save">Save</v-btn>
-              </v-card-actions>
-            </v-card>
-
-
-          </v-dialog>
-          <v-flex xs10 offset-xs1>
-            <v-text-field
-              append-icon="search"
-              label="Search"
-              single-line
-              hide-details
-
-              v-model="search"
-            ></v-text-field>
-          </v-flex>
-
+            </v-flex>
+            <v-flex xs6 >
+              <v-text-field
+                append-icon="search"
+                label="Search"
+                single-line
+                hide-details
+                v-model="search"
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
           <br>
 
           <v-data-table
@@ -189,14 +191,18 @@
           role: '',
           apiKey: '',
           apiExpirationDate: '',
-          token_balance: ''
+          token_balance: '',
+          password: '',
+          _id: ''
         },
         defaultItem: {
           name: '',
           role: '',
           apiKey: '',
           apiExpirationDate: '',
-          token_balance: ''
+          token_balance: '',
+          password: '',
+          _id: ''
         }
       }
     },
@@ -245,7 +251,6 @@
       editItem(item) {
         this.editedIndex = this.items.indexOf(item)
         this.editedItem = Object.assign({}, item);
-        this.editedItem.password = '';
         this.dialog = true
       },
 
@@ -284,6 +289,8 @@
           role: this.editedItem.role
         };
         if (this.editedIndex > -1) {
+          console.log(this.editedItem.password);
+
           axios.put(this.USER_URL + '/' + this.editedItem._id, userFromForm)
             .then((response) => {
               this.items.splice(this.editedIndex, 1, response.data);
