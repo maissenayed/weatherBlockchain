@@ -6,8 +6,8 @@
       <v-toolbar-items>
         <v-btn flat large color="primary" v-if="!$auth.check()" to="/" active-class> Home</v-btn>
         <v-btn flat large color="primary" v-if="!$auth.check()" to= "/session/login" >Login</v-btn>
-        <v-btn flat large color="primary" to= "/session/sign-up" >Register</v-btn>
-        <v-btn flat large color="primary" v-if="$auth.check()" class="pull-right"><a href="#" @click.prevent="$auth.logout()">Logout</a></v-btn>
+        <v-btn flat large color="primary" v-if="!$auth.check()" to= "/session/sign-up" >Register</v-btn>
+        <v-btn flat large color="primary" v-if="$auth.check()" class="pull-right" @click.prevent="logout">Logout</v-btn>
       </v-toolbar-items>
     </v-toolbar>
 
@@ -18,22 +18,34 @@
 
 export default {
 
-	    data () {
+      data () {
       return {
         title: 'Your Logo'
       }
-}}
+},methods: {
+    logout() {
+      this.$auth.logout({
+        makeRequest: false,
+        success() {
+          localStorage.clear();
+        },
+        error() {
+          localStorage.clear();
+        },
+        redirect: '/',
+      });
+    }}}
 
 </script>
 
 
 <style scoped>
 #logo{
-	position: fixed;
+  position: fixed;
 }
 
 #cardbox{
-	display: inline;
+  display: inline;
 }
 
 
