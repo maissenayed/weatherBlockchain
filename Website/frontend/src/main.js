@@ -82,6 +82,7 @@ Vue.use(require('@websanova/vue-auth'), {
   tokenExpired: () => {
     return null
   },
+
   refreshData: {enabled: false},
   fetchData: { enabled: false},
   rolesVar: 'role',
