@@ -17,6 +17,7 @@ import LockScreen from '@/views/session/LockScreen'
 import AdminUserList from '@/views/BackOffice/userList'
 import Transaction from '@/views/BackOffice/Transaction'
 import WeatherStation from '@/views/BackOffice/WeatherStation'
+import Pricing from '@/views/BackOffice/Pricing'
 import WorldMap from '@/views/FrontOffice/worldMap'
 import CountrydMap from '@/views/FrontOffice/countryMap'
 Vue.use(Router)
@@ -49,7 +50,7 @@ export default new Router({
           path: '/admin/weatherStations' ,
           component :WeatherStation,
           meta:{
-            title:'weather stations',
+            title:'Weather stations',
             breadcrumb: 'admin / Weather stations'
           }
         },
@@ -57,8 +58,16 @@ export default new Router({
           path: '/admin/transactions' ,
           component :Transaction,
           meta:{
-            title:'transactions',
+            title:'Transactions',
             breadcrumb: 'admin / Transactions'
+          }
+        },
+        {
+          path: '/admin/pricing' ,
+          component :Pricing,
+          meta:{
+            title:'Pricing',
+            breadcrumb: 'admin / Pricing'
           }
         }
       ]
