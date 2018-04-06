@@ -25,14 +25,15 @@ router.get('/user',function(req, res) {
 });
 router.get('/refresh',function(req, res, next) {
     console.log(req.body);
-    var user = new User({
+    /*var user = new User({
         username: username,
         password: password,
         wallet_adr: address,
         role: "client",
 
-    });
-    res.json(user);
+    });*/
+    res.set('Authorization',  "");
+    res.json("");
 
 });
 module.exports=router;
