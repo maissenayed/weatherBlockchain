@@ -1,0 +1,30 @@
+/*========== Label Scss ==========*/
+.label {
+  display: inline-block;
+  padding: $label-spacing;
+  font-size: $label-font-size;
+  font-weight: $label-font-weight;
+  color: $label-font-color;
+  text-align: center;
+  white-space: nowrap;
+  border-radius: $label-border-radius;
+  text-transform: $label-transform;
+}
+.label:empty {
+  display: none;
+}
+.label-primary {
+  background: $label-primary;
+}
+.label-success {
+  background: $label-success;
+}
+.label-pink {
+  background: $label-pink;
+}
+.label-warning {
+  background: $label-warning;
+}
+.label-purple {
+  background: $label-purple;
+}

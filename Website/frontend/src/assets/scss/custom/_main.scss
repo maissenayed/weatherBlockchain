@@ -1,0 +1,87 @@
+/*======== Main Scss ========*/
+.app-card {
+  background-color: $card-bg;
+  border: $card-border;
+  border-radius: $card-border-radius;
+  // margin-bottom: $card-margin-bottom;
+  box-shadow: $card-shadow;
+  transition: all .4s ease-in-out 0s;
+  .app-card-title {
+    position: relative;
+    padding: $card-title-spacing;
+    h3, .app-title {
+      font-size: $card-title-font-size;
+      color: $card-title-color;
+      text-transform: $card-title-transform;
+      font-weight: $card-title-weight;
+      margin: 0;
+    }
+  }
+  .app-contextual-link {
+    position: absolute;
+    right: 5px;
+    top: 15px;
+    .btn {
+      .icon {
+        color: $contextual-link-color;
+      }
+    }
+  }
+  .app-card-content {
+    padding: $card-spacing;
+  }
+  .app-full-content {
+    padding: 0;
+  }
+  .app-footer {
+    padding: $card-title-spacing;
+    border-top: $card-border;
+  }
+  &:hover {
+    box-shadow: $card-hover-shadow;
+  }
+}
+.list {
+  li {
+    a {
+      i.material-icons {
+        font-size: 1.125rem; //18px;
+        margin-right: 10px !important;
+      }
+    }
+  }
+}
+.app-card {
+  background-color: $card-bg;
+  border: $card-border;
+  border-radius: $card-border-radius;
+  margin-bottom: $card-margin-bottom;
+  box-shadow: $card-shadow;
+}
+.content {
+  overflow-y: hidden;
+}
+.dash-title {
+  margin-bottom: 1.25rem; //20px;
+  span {
+    font-size: $d-title-font-size;
+    color: $d-title-color;
+    text-transform: $d-title-transform;
+    letter-spacing: 2px;
+    font-weight: bold;
+    a {
+      vertical-align: 2px;
+      i {
+        font-size: $d-title-font-size;
+        color: $gray-dark !important;
+        margin-left: 5px;
+      }
+    }
+  }
+}
+.dash-card-wrap, .card {
+  transition: all 0.4s ease-in-out 0s;
+  &:hover {
+    box-shadow: $card-hover-shadow;
+  }
+}

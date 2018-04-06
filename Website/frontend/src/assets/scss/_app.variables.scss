@@ -1,0 +1,182 @@
+/*========== Custome Variable ==========*/
+// App Global Font Size
+$html-font-size:                16px;
+
+//App Background Scale
+$primary: 						      #1E3C72 !default;
+$secondary:         			  #cecece !default;
+$success: 						      #39B54A !default;
+$info: 							        #09C199 !default;
+$warning: 						      #F7981C !default;
+$danger: 						        #F85359 !default;
+$pink:                      #FA0055 !default;
+$blue:                      #2E62FF !default;
+$purple:                    #2B314A !default;
+$light:             			  #fff !default;
+$dark:              			  #000 !default;
+$base:                      #F1F4F8 !default;
+
+// App Text Scale
+$gray-dark: 					      #273142 !default;
+$gray:                      #354052 !default;
+$gray-light: 					      #9799A8 !default;
+$gray-lighter: 					    #DDE6F3 !default;
+
+//App Theme Color
+$theme-colors: () !default;
+$theme-colors: map-merge((
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+  "dark":       $dark,
+  "blue":       $blue
+), $theme-colors);
+
+// App Header Varibale
+$navbar-bg:                     $purple;
+
+// Settings for the `<body>` element.
+$body-bg:                       $light;
+$body-color:                    $gray;
+$font-family-base:              'Source Sans Pro', sans-serif;
+$border-color:                  darken($navbar-bg, 5%);
+
+// Setting for the Typograpgy elements.
+
+$font-size-base:                1rem !default; // Assumes the browser default, typically `16px`
+$font-size-lg:                  1.25rem !default;
+$font-size-sm:                 .875rem !default;
+
+$font-weight-light:             300;
+$font-weight-normal:            400;
+$font-weight-bold:              600;
+
+// Setting For Heading Element
+$h1-font-size:                  1.75rem !default;      // 28px
+$h2-font-size:                  1.5rem !default;       // 24px
+$h3-font-size:                  1.375rem !default;     // 22px
+$h4-font-size:                  1.125rem !default;     // 20px
+$h5-font-size:                  1rem !default;         // 16px
+$h6-font-size:                  0.875rem !default;     // 14px
+
+// Gradient Theme Color
+$light-primary:                 linear-gradient(0deg, #6A11CB 0%, #2575FC 100%); // Primary
+$light-success:                 linear-gradient(180deg, #00ECBC 0%, #007ADF 100%); // success
+$light-pink:                   	linear-gradient(0deg, #002849 0%, rgba(231,2,94,1) 100%); // Pink
+$light-warning:                 linear-gradient(180deg, #FF9944 0%, #FC6076 100%); // warning
+$light-purple:                  linear-gradient(180deg, #3023AE 0%, #C86DD7 100%);// purple
+
+// App Custom Card
+$card-bg: 						          #FDFDFD;
+$card-border-radius: 			      5px;
+$card-border: 					        1px solid #DDE6F3;
+$card-spacing: 					        1.25rem 1.25rem;//20px 20px
+$card-margin-bottom: 			      1.25rem; //20px
+$card-shadow:                   0 8px 13px 0 rgba(0,0,0,0.12);
+$card-hover-shadow:             none;
+
+// Card Title
+$card-title-color: 				      #354052;
+$card-title-font-size: 			    1.375rem; //22px
+$card-title-transform: 			    capitalize;
+$card-title-weight: 			      600;
+$card-title-spacing:            1.25rem 1.25rem;//20px 20px
+
+// Card Contextual link
+$contextual-link-size: 			    1.25rem;//20px
+$contextual-link-color: 		    #D8D8D8;
+
+// Breadcrumb Variable
+$breadcrumb-font-weight:        700;
+$breadcrumb-font-color:         $gray;
+$breadcrumb-font-size:          1.625rem; //26px;
+
+// Dashboard Tooltip Title
+$d-title-color:                $blue;
+$d-title-font-size:            0.8125rem; //13px;
+$d-title-transform:            uppercase;
+
+// Dark theme
+$dark-bg:                      #424242;
+$dark-bg-color:                #fff;
+$dark-bg-container:            #303030;
+$dark-border-color:            rgba(0, 0, 0, 0.1);
+
+// Label Variable
+$label-spacing:                 0.25rem 0.9rem;
+$label-font-color:              $light;
+$label-font-size:               85%;
+$label-font-weight:             600;
+$label-transform:               uppercase;
+$label-border-radius:           0.25rem;
+
+$label-primary:                $light-primary;
+$label-success:                $light-success;
+$label-pink:                   $light-pink;
+$label-warning:                $light-warning;
+$label-purple:                 $light-purple;
+
+// Button Gradient Variable
+$btn-gradient-primary:        $light-primary;
+$btn-gradient-success:        $light-success;
+$btn-gradient-pink:           $light-pink;
+$btn-gradient-warning:        $light-warning;
+$btn-gradient-purple:         $light-purple;
+
+// Button Simple Variable
+$btn-primary:                 $primary;
+$btn-secondary:               $secondary;
+$btn-success:                 $success;
+$btn-info:                    $info;
+$btn-warning:                 $warning;
+$btn-danger:                  $danger;
+
+$btn-font-weight:             600;
+$btn-icon-font-size:          1.125rem;
+$btn-border-radius:           5px;
+
+// Input Variable
+$input-border-color:           #E2E7EE;
+
+// Sidebar Variable
+
+$sidebar-bg:                   #F1F4F8;
+$sidebar-width:                250px;
+$collapse-sidebar-width:       70px;
+$sidebar-nav-color:            #1D2433;
+$sidebar-nav-text-size:        16px;
+$sidebar-nav-active-color:     $light;
+$sidebar-nav-active-bg:        $light-primary;
+$sidebar-nav-spacing:          10px;
+
+$sidebar-subnav-font-size:     $sidebar-nav-text-size;
+$sidebar-subnav-font-color:    $sidebar-nav-color;
+$sidebar-icon-color:           #2E62FF;
+
+// Search Form Varibale
+$search-bg:                    rgba(43, 49, 74, 0.96);
+$search-bg-border:             rgba(255, 255, 255, 0.9);
+$search-input-border:          $light;
+$search-placeholder-color:     rgba(255, 255, 255, 0.9);
+
+// Sidebar Variable
+
+// Back To Top Variable
+$back-to-top-bg:               $light-primary;
+
+// Loader Variable
+$loader-bg-1:                  $light-warning;
+$loader-bg-2:                  $light-primary;
+$loader-overlay:               rgba(255, 255, 255, 0.9);
+
+// Dragula
+$dragula-bg:                   $danger;
+$dragula-color:                $light;
+
+// Calender Variable
+$calender-head-bg:             $primary;
+$calender-event-bg:            $danger;

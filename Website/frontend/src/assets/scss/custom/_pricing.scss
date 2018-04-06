@@ -1,0 +1,18 @@
+/*=============== Pricing Table ============*/
+.pricing-wrapper {
+  .app-card-content {
+    h2 {
+      @include border(1px solid, $gray-lighter, bottom);
+      padding: 1.25rem;
+    }
+  }
+}
+.list-group-flush {
+  .list-group-item {
+    @include border(1px solid, $gray-lighter, bottom);
+    padding: 0.9375rem 0; //15px 0;
+    &:last-child {
+      border: none;
+    }
+  }
+}
