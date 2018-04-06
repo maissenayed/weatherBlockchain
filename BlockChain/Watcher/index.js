@@ -1,5 +1,5 @@
 var Web3 = require('web3');
-var web3 = new Web3(new Web3.providers.HttpProvider('http://parity.nammumu.net:8545/'));
+var web3 = new Web3(new Web3.providers.HttpProvider('http://parity.270bytes.com:8545/'));
 var request = require('request');
 //var web3 = new Web3(new Web3.providers.HttpProvider("ropsten.infura.io/Aw3w60eim9JnLWZHH1gl"));
 
@@ -44,7 +44,7 @@ myEvent.watch((error, result) => {
 function SaveTransaction(alldata) {
 
     var options = {
-        uri: 'http://apicollector.nammumu.net:3002/transaction',
+        uri: 'http://express.270bytes.com:3030/transaction',
         method: 'POST',
         json: alldata
     };
