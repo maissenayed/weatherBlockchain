@@ -105,7 +105,7 @@
 
       },
       sign (account) {
-
+        let self = this;
         web3.personal.sign(web3.toHex("270bytes weather"), account, (err, res) => {
           if (err == null) {
 
@@ -118,12 +118,19 @@
                 'Content-type': 'application/x-www-form-urlencoded'
               }
             })
-              .then(() => this.$router.push(this.$route.query.redirect || '/'))
-              .catch((error) => {
-                //this.$router.push({ name: 'register' , query:{ redirect: '/register'} });
-                this.$router.push('/session/sign-up');
-                //router.go({path:'/register'});
-                //this.$router.replace(this.$route.query.redirect || '/register');
+              .then( (res)=> {
+                console.log(res.data);
+                self.$auth.user(res.data.userInfo);
+                console.log(this.$auth.user().role);
+                self.$auth.token('default-auth-token', res.data.token);
+                localStorage.setItem('default-auth-token', res.data.token);
+                self.$auth.check('true');
+               self.$router.push('/map');
+              console.log(response);
+            })
+             .catch(function (error) {
+               // router.push('/session/sign-up');
+                console.log(error);
               });
 
           }

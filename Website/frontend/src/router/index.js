@@ -78,7 +78,9 @@ export default new Router({
       name: 'home'
     }, { path: '/transactions' , component :Transaction},
     {path:'/map',component:WorldMap},
-    {path:'/map/:country',component:CountrydMap,props: true },
+    {path:'/map/:country',component:CountrydMap,props: true , meta: {
+        auth: {roles: 'admin', redirect: '/map/:country', forbiddenRedirect: '/admin/403'}}
+      }
 
   ],
   mode:"history"

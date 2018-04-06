@@ -64,6 +64,7 @@
 </template>
 
 <script>
+  import {default as Web3} from 'web3';
 
   var qs = require('qs');
   export default {
@@ -74,8 +75,48 @@
         password: '',
         error: false,
         errors: {},
-        success: false
+        success: false,
+        display_error: false,
+        network_name: '',
+        wallet_id: '',
+        unlock_msg: 'please unlock MetaMask',
+        unlock_error: false
       };
+    },
+    mounted() {
+      if (typeof web3 !== 'undefined') {
+        // Use Mist/MetaMask's provider
+        this.display_error = false;
+        web3 = new Web3(web3.currentProvider);
+
+      } else {
+        this.error_msg = 'No web3? You should consider trying MetaMask!';
+        this.display_error = true;
+      }
+      web3.version.getNetwork((err, netId) => {
+        switch (netId) {
+          case "1":
+            this.network_name = 'mainnet'
+            break
+          case "2":
+            this.network_name = 'deprecated Morden test network.'
+            break
+          case "3":
+            this.network_name = 'ropsten test network.'
+            break
+          case "4":
+            this.network_name = 'rinkeby test network.'
+            break
+          case "42":
+            this.network_name = 'kovan test network.'
+            break
+          default:
+            this.network_name = 'unknown network.'
+        }
+      })
+
+      this.adress = web3.eth.accounts[0];
+
     },
     methods: {
       register(){
@@ -87,10 +128,11 @@
             password: this.password,
           }),
           success: function (res) {console.log(res.data.token);
-            console.log(res.data);
             app.$auth.user(res.data.userInfo);
-            console.log(app.$auth.user().role);
-            app.$auth.token('access_token', res.data.token);
+            console.log(this.$auth.user().role);
+            app.$auth.token('default-auth-token', res.data.token);
+            localStorage.setItem('default-auth-token', res.data.token);
+            app.$auth.check('true');
             app.success = true
           },
           error: function (resp) {
