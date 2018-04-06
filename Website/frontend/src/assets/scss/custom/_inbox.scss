@@ -1,0 +1,58 @@
+/*========== Inbox ===========*/
+.inbox-head {
+  @include border(1px solid, $input-border-color, right);
+  .card__media {
+    border-top-left-radius: 5px;
+  }
+  .inbox-inner {
+    padding: 1.25rem; //20px;
+    h3 {
+      font-weight: 600;
+      padding: 0 0.9375rem;
+      margin-bottom: 0.9375rem; //15px;
+    }
+    .list {
+      padding: 0;
+      margin-bottom: 1.875rem;
+      li {
+        @include border(1px solid, $input-border-color, bottom);
+      }
+    }
+  }
+}
+.inbox-page-list {
+  padding: 1.25rem; //20px;
+  ul {
+    li {
+      padding: 0 10px;
+      a {
+        text-decoration: none;
+        color: $gray;
+        &:hover {
+          color: $danger;
+        }
+      }
+    }
+  }
+}
+.inbox-listing {
+  ul {
+    > li {
+      &:nth-child(even) {
+        background-color: $base;
+        @include border(1px solid, $input-border-color, top bottom);
+      }
+    }
+  }
+}
+@media (max-width: 750px) {
+  .inbox {
+    .flex {
+      max-width: 100%;
+      flex-basis: 100%;
+      &.pl-0, &.pr-0 {
+        padding: 0 12px !important;
+      }
+    }
+  }
+}

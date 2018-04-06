@@ -1,0 +1,194 @@
+/*========== RTL Layout =========*/
+.rtl-layout * {
+  direction: rtl;
+  .app-customizer {
+    left: 0;
+    right: inherit;
+    .customizer-toggle {
+      right: -45px;
+      left: inherit;
+    }
+  }
+  .site-logo {
+    padding: 0.9375rem 0rem 0.9375rem 3.75rem;
+  }
+  .toolbar__content > :not(.btn):not(.menu):first-child, .toolbar__extension > :not(.btn):not(.menu):first-child {
+    margin-right: 16px;
+    margin-left: inherit;
+  }
+  .app-card {
+    .app-contextual-link {
+      left: 20px;
+      right: inherit;
+    }
+  }
+  .list__tile__content, .list__tile__title {
+    text-align: right;
+  }
+  .btn--right {
+    left: 16px;
+    right: inherit;
+  }
+  .btn-icon i {
+    margin-left: 0.625rem;
+    margin-right: 0;
+  }
+  .btn .icon--right {
+    margin-right: 1rem;
+    margin-left: inherit;
+  }
+  .input-group--segmented .input-group__input::after, .input-group--editable .input-group__input:hover::after,
+  .input-group.input-group--focused.input-group--editable .input-group__input::after {
+    left: 55px;
+    right: inherit;
+  }
+  .input-group.input-group--overflow label, .input-group.input-group--editable label,
+  .input-group.input-group--segmented label {
+    right: 16px;
+    left: inherit;
+  }
+  .input-group.input-group--editable input {
+    padding-right: 1rem;
+  }
+  .input-group--text-field.input-group--prepend-icon label {
+    right: 40px;
+    left: inherit;
+  }
+  .input-group.input-group--selection-controls label {
+    right: 32px;
+    left: inherit;
+  }
+  .input-group--text-field label,
+  .input-group.input-group--selection-controls .icon--selection-control {
+    right: 0;
+    left: inherit;
+  }
+  .input-group label {
+    text-align: right;
+    -webkit-transform-origin: top right;
+    transform-origin: top right;
+  }
+  .input-group.input-group--selection-controls.switch label {
+    padding-right: 14px;
+    padding-left: inherit;
+  }
+  .input-group.input-group--selection-controls.switch .input-group--selection-controls__toggle {
+    right: 0;
+    left: inherit;
+  }
+  .input-group--selection-controls__ripple::before,
+  .input-group.input-group--selection-controls.switch .input-group--selection-controls__ripple::after {
+    left: -24%;
+  }
+  .chip--removable .chip__content {
+    padding: 0 12px 0 4px;
+  }
+  .chip .avatar {
+    margin-right: -12px;
+    margin-left: 8px;
+  }
+  .chip .icon--right {
+    margin-right: 12px;
+    margin-left: -8px;
+  }
+  .chip .icon--left {
+    margin-right: -8px;
+    margin-left: 12px;
+  }
+  .chip__close {
+    margin: 0 4px 0 -1px;
+  }
+  .icon-box span i {
+    margin: 0 0px 0 15px;
+  }
+  .flex.offset-md1 {
+    margin-right: 8.333333333333332%;
+    margin-left: inherit;
+  }
+  .ma-0 {
+    margin-left: 0;
+    margin-right: auto
+  }
+  .mr-1 {
+    margin-left: 0.3rem;
+  }
+  .mr-2 {
+    margin-left: 0.6rem;
+  }
+  .mr-3 {
+    margin-left: 1.2rem;
+  }
+  .mr-4 {
+    margin-left: 1.8rem;
+  }
+  .mr-5 {
+    margin-left: 3.6rem;
+  }
+  .ma-0 {
+    margin-right: 0;
+  }
+  .ml-1 {
+    margin-right: 0.3rem;
+  }
+  .ml-2 {
+    margin-right: 0.6rem;
+  }
+  .ml-3 {
+    margin-right: 1.2rem;
+  }
+  .ml-4 {
+    margin-right: 1.8rem;
+  }
+  .ml-5 {
+    margin-right: 3.6rem;
+  }
+  .pa-0 {
+    padding-left: 0;
+  }
+  .pr-1 {
+    padding-left: 0.3rem;
+  }
+  .pr-2 {
+    padding-left: 0.6rem;
+  }
+  .pr-3 {
+    padding-left: 1.2rem;
+  }
+  .pr-4 {
+    padding-left: 1.8rem;
+  }
+  .pr-5 {
+    padding-left: 3.6rem;
+  }
+  .pa-0 {
+    padding-right: 0;
+  }
+  .pl-1 {
+    padding-right: 0.3rem;
+  }
+  .pl-2 {
+    padding-right: 0.6rem;
+  }
+  .pl-3 {
+    padding-right: 1.2rem;
+  }
+  .pl-4 {
+    padding-right: 1.8rem;
+  }
+  .pl-5 {
+    padding-right: 3.6rem;
+  }
+  .inbox-head {
+    border-left: 1px solid $input-border-color;
+  }
+  .inbox {
+    .pr-0 {
+      padding-left: 0 !important;
+      padding-right: 10px !important;
+    }
+    .pl-0 {
+      padding-right: 0 !important;
+      padding-left: 10px !important;
+    }
+  }
+}

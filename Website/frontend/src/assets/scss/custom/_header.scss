@@ -1,0 +1,50 @@
+/*=========== Navbar Css ============*/
+.site-logo {
+  padding: 0.9375rem 3.75rem 0.9375rem 0; //15px 60px 15px 0
+  line-height: 15px;
+}
+.drop-menu {
+  color: $light;
+  padding: 10px;
+  img {
+    vertical-align: -9px;
+    margin-right: 10px;
+  }
+  span {
+    i {
+      vertical-align: -7px;
+    }
+  }
+}
+.theme--light, .theme--dark {
+  .toolbar.navbar-default  {
+    background: $navbar-bg;
+  }
+  .navbar-default {
+    .toolbar__side-icon {
+      color: $light;
+    }
+    .right-nav {
+      .d-inline-50, .btn--icon {
+        color: $light;
+        font-size: 1.25rem; //20px
+        @include border(2px solid, rgba(0,0,0, 0.3), right);
+        border-radius: 0;
+        height: 50px;
+        width: 50px;
+        margin: 0;
+        .d-inline-50 {
+          &:last-child {
+            border-right: none;
+            width: auto;
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 959px) and (min-width: 320px) {
+  .toolbar__content {
+    height: 64px !important;
+  }
+}

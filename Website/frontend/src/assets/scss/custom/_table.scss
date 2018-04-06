@@ -1,0 +1,17 @@
+/*========== Table Css =========*/
+.theme--light {
+  table.table {
+  thead,
+  tbody,
+    tfoot {
+      tr {
+      td,
+        th {
+          vertical-align: middle;
+          font-size: 14px;
+          color: $gray;
+        }
+      }
+    }
+  }
+}

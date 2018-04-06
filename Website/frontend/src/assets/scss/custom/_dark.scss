@@ -1,0 +1,25 @@
+/*=========== Dark Version ==========*/
+.theme--dark {
+  .app-card, .dash-card,  .navigation-drawer, .navbar-default, .dash-card-wrap, .dash-card-light, .comp-full-calendar, .session-block, .card-base, .inbox-listing ul > li:nth-child(2n), .theme--dark .navigation-drawer {
+    background-color: $dark-bg !important;
+    border-color: $dark-border-color;
+    color: $dark-bg-color;
+  }
+  .app-card, .breadcrumbs, .icon, {
+    h1, h2, h3, h4, h5, h6, p, span, .text-gray, .secondary--text, .ql-formats button svg,  {
+      color: $dark-bg-color !important;
+    }
+  }
+  .ql-snow.ql-toolbar button, .ql-snow .ql-toolbar button, figure.img-wrapper::after, .chip {
+    background-color: $dark-bg-container !important;
+  }
+  .border-bottom-1, .border-bottom-2, .border-bottom-light-1, .border-bottom-light-2, .border-tb-1, .inbox-head, .inbox-head .inbox-inner .list li {
+    border-color: $dark-border-color;
+  }
+  .search {
+    background: rgba(0, 0, 0, .8);
+  }
+  .sidebar-title span, .dash-title span, .datatable a, .list__group__header *, .icon, .list__tile__action, .navigation-drawer .navigation .list .list__group .list__group__header .list__group__header__append-icon i {
+    color: $dark-bg-color !important;
+  }
+}
