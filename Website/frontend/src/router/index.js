@@ -44,8 +44,23 @@ export default new Router({
             breadcrumb: 'admin / User List',
 
           }
+        },
+        {
+          path: '/admin/weatherStations' ,
+          component :WeatherStation,
+          meta:{
+            title:'weather stations',
+            breadcrumb: 'admin / Weather stations'
+          }
+        },
+        {
+          path: '/admin/transactions' ,
+          component :Transaction,
+          meta:{
+            title:'transactions',
+            breadcrumb: 'admin / Transactions'
+          }
         }
-
       ]
     },
     {
@@ -77,8 +92,7 @@ export default new Router({
       path: '/',
       component: home,
       name: 'home'
-    }, { path: '/transactions' , component :Transaction},
-    { path: '/weatherStations' , component :WeatherStation},
+    },
     {path:'/map',component:WorldMap},
     {path:'/map/:country',component:CountrydMap,props: true , meta: {
         auth: {roles: 'admin', redirect: '/map/:country', forbiddenRedirect: '/admin/403'}}

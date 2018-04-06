@@ -1,4 +1,7 @@
 <template>
+  <v-container fluid grid-list-xl py-0>
+    <div class="app-card">
+      <div class="app-card-content">
     <div>
         <v-app id="inspire">
             <div>
@@ -89,6 +92,9 @@
             </div>
         </v-app>
     </div>
+      </div>
+    </div>
+  </v-container>
 </template>
 
 <script>
@@ -100,9 +106,9 @@
         data() {
             return {
                 stateAndCountry: {},
-                WEATHERSTATION_URL: 'http://localhost:3002/weatherstation',
-                COUNTRYAPI_URL: 'http://localhost:3002/country',
-                STATEAPI_URL: 'http://localhost:3002/state',
+                WEATHERSTATION_URL: 'http://localhost:3030/weatherstation',
+                COUNTRYAPI_URL: 'http://localhost:3030/country',
+                STATEAPI_URL: 'http://localhost:3030/state',
                 countries_list: [],
                 states_list: [],
                 weatherStations: [],
