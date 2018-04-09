@@ -96,7 +96,7 @@
           error: function () {},
           method: 'POST',
           rememberMe: true,
-          redirect: '/map',
+          redirect: '/admin/userList',
           fetchUser: true,
           headers: {
             'Content-type': 'application/x-www-form-urlencoded'
