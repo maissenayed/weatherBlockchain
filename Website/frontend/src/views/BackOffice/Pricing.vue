@@ -97,6 +97,7 @@
   import {default as Web3} from 'web3';
   import axios from 'axios'
 
+
   export default {
     name: 'Pricing',
     props: {},
