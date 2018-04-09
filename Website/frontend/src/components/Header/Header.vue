@@ -25,18 +25,21 @@
       <v-spacer></v-spacer>
       <div class="right-nav">
         <!-- App Searchbar -->
-        <v-btn icon @click="searchFormHanler" class="d-inline-50">
-          <i class="ti-search"></i>
-        </v-btn>
-        <div class="search" :class="{ 'search--open': searchFormOpen }">
-          <button id="btn-search-close" class="btn btn--search-close" aria-label="Close search form" @click="searchFormHanler">
-            <i class="ti-close"></i>
-          </button>
-          <form class="search__form" action="">
-            <input class="search__input" name="search" type="search" placeholder="Search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-            <span class="search__info">Search Anything</span>
-          </form>
-        </div>
+        <span style="color:white">Token balance : {{token_balance}} </span>
+        <span style="color:white;padding-left: 20px;">API expiration date : {{apiExpirationDate| formatDate}} </span>
+
+        <!--   <v-btn icon @click="searchFormHanler" class="d-inline-50">
+             <i class="ti-search"></i>
+           </v-btn>
+           <div class="search" :class="{ 'search&#45;&#45;open': searchFormOpen }">
+             <button id="btn-search-close" class="btn btn&#45;&#45;search-close" aria-label="Close search form" @click="searchFormHanler">
+               <i class="ti-close"></i>
+             </button>
+             <form class="search__form" action="">
+               <input class="search__input" name="search" type="search" placeholder="Search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+               <span class="search__info">Search Anything</span>
+             </form>
+           </div>-->
         <v-btn icon @click="toggleFullScreen" class="d-inline-50">
           <i class="ti-fullscreen"></i>
         </v-btn>
@@ -74,101 +77,148 @@
             </v-list-tile>
             <v-list-tile to="/session/login">
               <v-icon class="mr-3 font-lg text-gray">ti-power-off</v-icon>
-              <v-list-tile-title>Log Out</v-list-tile-title>
+              <v-list-tile-title @click.prevent="logout">Log Out</v-list-tile-title>
             </v-list-tile>
           </v-list>
         </v-menu>
       </div>
     </v-toolbar>
     <!-- Chat Searchbar -->
-      <v-navigation-drawer fixed v-model="chatSidebar" :width="250" :right="!rtlLayout" temporary app>
+    <v-navigation-drawer fixed v-model="chatSidebar" :width="250" :right="!rtlLayout" temporary app>
       <chat-sidebar></chat-sidebar>
     </v-navigation-drawer>
   </div>
 </template>
 
 <script>
-/* eslint-disable */
-import Sidebar from "../Sidebar/Sidebar.vue";
-import ChatSidebar from "../ChatSidebar/ChatSidebar.vue";
-import EventBus from "../../lib/eventBus";
-import screenfull from "screenfull";
+  /* eslint-disable */
+  import Sidebar from "../Sidebar/Sidebar.vue";
+  import ChatSidebar from "../ChatSidebar/ChatSidebar.vue";
+  import EventBus from "../../lib/eventBus";
+  import screenfull from "screenfull";
+  import axios from 'axios'
 
-export default {
-  data() {
-    return {
-      collapsed: false, // collapse sidebar
-      drawer: true, // sidebar drawer default true
-      chatSidebar: false, // chat component right sidebar
-      sidebarImages: "", // sidebar background images
-      enableSidebarBackground: false,
-      enableDefaultSidebar: false,
-      rtlLayout: false,
-      searchFormOpen: false,
-      items: [
-        {
-          title: "Total App Memory",
-          icon: "storage"
-        },
-        {
-          title: "Total Memory Used",
-          icon: "memory"
-        },
-        {
-          title: "12 Unread Mail",
-          icon: "mail"
-        },
-        {
-          title: "Feedback",
-          icon: "feedback"
-        }
-      ]
-    };
-  },
-  computed: {
-    // computed property to get the state of collapsed sidebar
-    sidebarCollapse() {
-      EventBus.$on("collapseSidebar", payload => {
-        this.collapsed = payload;
-      });
-      return this.collapsed;
+
+  export default {
+    data() {
+      return {
+        apiExpirationDate: new Date(),
+        token_balance: 0,
+        USER_URL: 'http://localhost:3030/users',
+        loggedUser: null,
+        collapsed: false, // collapse sidebar
+        drawer: true, // sidebar drawer default true
+        chatSidebar: false, // chat component right sidebar
+        sidebarImages: "", // sidebar background images
+        enableSidebarBackground: false,
+        enableDefaultSidebar: false,
+        rtlLayout: false,
+        searchFormOpen: false,
+        items: [
+          {
+            title: "Total App Memory",
+            icon: "storage"
+          },
+          {
+            title: "Total Memory Used",
+            icon: "memory"
+          },
+          {
+            title: "12 Unread Mail",
+            icon: "mail"
+          },
+          {
+            title: "Feedback",
+            icon: "feedback"
+          }
+        ]
+      };
     },
-    // computed property to change the background image of the sidebar
-    sidebarImage() {
-      EventBus.$on("changeBackgroundImage", payload => {
-        this.sidebarImages = payload;
-      });
-      return "background-image: url(" + this.sidebarImages + ");";
+    created() {
+      this.loggedUser = JSON.parse(localStorage.getItem('user'));
+      axios.get(this.USER_URL + '/' + this.loggedUser.id)
+        .then((response) => {
+
+          this.token_balance = response.data.token_balance;
+          this.apiExpirationDate = response.data.apiExpirationDate;
+
+          this.apiExpirationDate = new Date(this.apiExpirationDate);
+        })
+        .catch((error) => {
+        });
+
     },
-    // computed property to display the sidebar image or not
-    backgroundImageToggle() {
-      EventBus.$on("backgroundImage", payload => {
-        this.enableSidebarBackground = payload;
-      });
-      return this.enableSidebarBackground;
+    mounted() {
+      EventBus.$on('addBalanceTicket', payload => {
+        this.token_balance += payload;
+      })
+      EventBus.$on('addWeekToExpiration', payload => {
+
+        this.apiExpirationDate = new Date(this.apiExpirationDate);
+        this.apiExpirationDate.setDate(this.apiExpirationDate.getDate() + payload);
+
+      })
+      EventBus.$on('addMonthToExpiration', payload => {
+        this.apiExpirationDate = new Date(this.apiExpirationDate);
+        this.apiExpirationDate.setDate(this.apiExpirationDate.getDate() + payload);
+      })
     },
-    // if rtl Layout
-    ifRtlLayout() {
-      EventBus.$on("rtlLayoutEvent", payload => {
-        this.rtlLayout = payload;
-      });
-      return this.rtlLayout;
-    }
-  },
-  methods: {
-    // toggle full screen method
-    toggleFullScreen() {
-      if (screenfull.enabled) {
-        screenfull.toggle();
+    computed: {
+      // computed property to get the state of collapsed sidebar
+      sidebarCollapse() {
+        EventBus.$on("collapseSidebar", payload => {
+          this.collapsed = payload;
+        });
+        return this.collapsed;
+      },
+      // computed property to change the background image of the sidebar
+      sidebarImage() {
+        EventBus.$on("changeBackgroundImage", payload => {
+          this.sidebarImages = payload;
+        });
+        return "background-image: url(" + this.sidebarImages + ");";
+      },
+      // computed property to display the sidebar image or not
+      backgroundImageToggle() {
+        EventBus.$on("backgroundImage", payload => {
+          this.enableSidebarBackground = payload;
+        });
+        return this.enableSidebarBackground;
+      },
+      // if rtl Layout
+      ifRtlLayout() {
+        EventBus.$on("rtlLayoutEvent", payload => {
+          this.rtlLayout = payload;
+        });
+        return this.rtlLayout;
       }
     },
-    searchFormHanler() {
-      this.searchFormOpen = !this.searchFormOpen;
+    methods: {
+      // toggle full screen method
+      toggleFullScreen() {
+        if (screenfull.enabled) {
+          screenfull.toggle();
+        }
+      },
+      logout() {
+        this.$auth.logout({
+          makeRequest: false,
+          success() {
+            localStorage.clear();
+          },
+          error() {
+            localStorage.clear();
+          },
+          redirect: '/',
+        });
+      },
+      searchFormHanler() {
+        this.searchFormOpen = !this.searchFormOpen;
+      }
+    },
+    components: {
+      appSidebar: Sidebar,
+      ChatSidebar
     }
-  },
-  components: {
-    appSidebar: Sidebar,
-    ChatSidebar
-  }
-};
+  };
 </script>

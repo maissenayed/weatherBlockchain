@@ -21,6 +21,20 @@ router.get('/', function (req, res, next) {
         }
     });
 });
+router.get('/:id', function (req, res, next) {
+    var id = req.params.id;
+    User.findById(id).exec(function (err, userFound) {
+        if (err) {
+            return res.send(err);
+        }
+        if (!userFound) {
+            return res.sendStatus(404);
+        }
+        else {
+          return res.json(userFound);
+        }
+    });
+});
 router.post('/', function (req, res) {
     var usr = new User(req.body);
     usr.save(function (err, newUser) {

@@ -59,7 +59,7 @@
                   </div>
                   <div class="app-footer">
                     <a href="javascript:;" class="btn btn-block btn-gradient-success white--text"
-                       @click="topup(20000000000000000)">Buy now ! </a>
+                       @click="topup(20000000000000000,'week')">Buy now ! </a>
                   </div>
                 </div>
               </v-flex>
@@ -79,7 +79,7 @@
                   </div>
                   <div class="app-footer">
                     <a href="javascript:;" class="btn btn-block btn-gradient-warning white--text"
-                       @click="topup(80000000000000000)">Buy now ! </a>
+                       @click="topup(80000000000000000,'month')">Buy now ! </a>
                   </div>
                 </div>
               </v-flex>
@@ -92,7 +92,7 @@
 </template>
 <script>
   import {default as Web3} from 'web3';
-
+  import {EventBus} from '../../lib/eventBus';
 
   export default {
     name: 'Pricing',
@@ -217,16 +217,17 @@
         ];
         return web3.eth.contract(abi).at(address);
       },
-      topup(ticket_price, nb_ticket) {
+      topup(ticket_price, nb_Ticket_Or_Type_Of_Offer) {
         var miniToken = this.initContract();
         const address = '0x48a9ca6e6cc7e5664ccc746213b3e3e6bf88e23d';
         let price = 0;
-        if (nb_ticket !== undefined) {
-          price = ticket_price * nb_ticket;
+        if (typeof nb_Ticket_Or_Type_Of_Offer!== "string") {
+          price = ticket_price * nb_Ticket_Or_Type_Of_Offer;
         }
         else {
           price = ticket_price;
         }
+
 
         web3.eth.sendTransaction({
           to: address,
@@ -262,6 +263,19 @@
                     this.transactionHash = response.transactionHash;
 
                     this.transaction_data = true;
+                    //todo : change token balance here
+
+                    if (typeof nb_Ticket_Or_Type_Of_Offer!== "string") {
+                      EventBus.$emit('addBalanceTicket',10);
+                    }
+                    else if(nb_Ticket_Or_Type_Of_Offer=== "week") {
+                      console.log('week')
+                      EventBus.$emit('addWeekToExpiration',7);
+                    }
+                    else{
+                      console.log('month')
+                      EventBus.$emit('addMonthToExpiration',30);
+                    }
 
                   }
                   else {
