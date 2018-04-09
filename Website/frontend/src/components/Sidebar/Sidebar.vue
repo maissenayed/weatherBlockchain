@@ -35,9 +35,7 @@
                 </v-list>
               </v-menu>
             </v-list-tile>
-            <div class="sidebar-title px-3">
-              <span>{{$lang.strings.general}}</span>
-            </div>
+
             <template v-for="item in category1">
               <template v-if="item.items!= null">
                 <v-list-group
@@ -77,9 +75,7 @@
                 </v-list-tile>
               </template>
             </template>
-            <div class="sidebar-title px-3">
-              <span>{{$lang.strings.components}}</span>
-            </div>
+
             <template v-for="item in category2">
               <template v-if="item.items!= null">
                 <v-list-group
@@ -119,9 +115,7 @@
                   </v-list-tile>
               </template>
             </template>
-            <div class="sidebar-title px-3">
-              <span>{{$lang.strings.applications}}</span>
-            </div>
+
             <template v-for="item in category3">
               <template v-if="item.items!= null">
                 <v-list-group
@@ -158,9 +152,7 @@
                   </v-list-tile>
               </template>
             </template>
-            <div class="sidebar-title px-3">
-              <span>{{$lang.strings.features}}</span>
-            </div>
+
             <template v-for="item in category4">
               <template v-if="item.items!= null">
                 <v-list-group

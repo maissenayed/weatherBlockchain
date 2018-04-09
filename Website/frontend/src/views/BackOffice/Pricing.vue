@@ -253,7 +253,6 @@
 
                     this.transaction_data = true;
 
-
                   }
                   else {
                     console.log('transaction still being mined')
