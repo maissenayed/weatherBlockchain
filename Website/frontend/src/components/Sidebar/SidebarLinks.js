@@ -1,35 +1,65 @@
 // Sidebar Routers
 export const category1 = [
   {
-    action: 'ti-dashboard',
-    title: 'dashboard',
-    items: [
-      { title: 'dashboardv1', path: '/dashboard/dashboard-v1' },
-      { title: 'dashboardv2', path: '/dashboard/dashboard-v2' }
-    ]
+    action: 'ti-user',
+    title: 'users',
+    items: null,
+    path: '/admin/userlist'
   },
   {
-    action: 'ti-layers',
-    title: 'pages',
-    items: [
-      { title: 'gallery', path: '/pages/gallery' },
-      { title: 'pricing', path: '/pages/pricing' },
-      { title: 'blank', path: '/pages/blank' }
-    ]
+    action: 'ti-cloud',
+    title: 'weather_stations',
+    items: null,
+    path: '/admin/weatherStations'
   },
   {
-    action: 'ti-timer',
-    title: 'session',
-    items: [
-      { title: 'signUp', path: '/session/sign-up' },
-      { title: 'login', path: '/session/login' },
-      { title: 'lockScreen', path: '/session/lock-screen' }
-    ]
+    action: 'ti-server',
+    title: 'transactions',
+    items: null,
+    path: '/admin/transactions'
+  },
+  {
+    action: 'ti-money',
+    title: 'pricing',
+    items: null,
+    path: '/admin/pricing'
+  },
+  {
+    action: 'ti-map-alt',
+    title: 'map',
+    items: null,
+    path: '/map'
   }
+  // {
+  //   action: 'ti-dashboard',
+  //   title: 'dashboard',
+  //   items: [
+  //     { title: 'dashboardv1', path: '/dashboard/dashboard-v1' },
+  //     { title: 'dashboardv2', path: '/dashboard/dashboard-v2' }
+  //   ]
+  // },
+  // {
+  //   action: 'ti-layers',
+  //   title: 'pages',
+  //   items: [
+  //     { title: 'gallery', path: '/pages/gallery' },
+  //     { title: 'pricing', path: '/pages/pricing' },
+  //     { title: 'blank', path: '/pages/blank' }
+  //   ]
+  // },
+  // {
+  //   action: 'ti-timer',
+  //   title: 'session',
+  //   items: [
+  //     { title: 'signUp', path: '/session/sign-up' },
+  //     { title: 'login', path: '/session/login' },
+  //     { title: 'lockScreen', path: '/session/lock-screen' }
+  //   ]
+  // }
 ]
 
 export const category2 = [
-  {
+  /*{
     action: 'ti-layout',
     title: 'uiElements',
     items: [
@@ -97,17 +127,11 @@ export const category2 = [
       { title: 'leafletMaps', path: '/maps/leaflet-maps' },
       { title: 'jvectorMap', path: '/maps/jvector-map' }
     ]
-  }
+  }*/
 ]
 
 export const category3 = [
-  {
-    action: 'ti-email',
-    title: 'inbox',
-    items: null,
-    path: '/inbox'
-  },
-  {
+  /*{
     action: 'ti-user',
     title: 'users',
     items: [
@@ -120,11 +144,11 @@ export const category3 = [
     title: 'calendar',
     items: null,
     path: '/calendar'
-  }
+  }*/
 ]
 
 export const category4 = [
-  {
+  /*{
     action: 'ti-pencil-alt',
     title: 'editor',
     items: [
@@ -140,5 +164,5 @@ export const category4 = [
       { title: 'vueDraggable', path: '/drag-drop/vuedraggable' },
       { title: 'draggableResizeable', path: '/drag-drop/vuedraggableresizeable' }
     ]
-  }
+  }*/
 ]

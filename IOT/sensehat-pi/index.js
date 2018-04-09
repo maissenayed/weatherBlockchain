@@ -2,28 +2,27 @@ imu = require('node-sense-hat').Imu;
 var request = require('request');
 
 IMU = new imu.IMU();
-var dataCollected = {
-    "coord": {
-        "lng": 1.39,
-        "lat": 35.0,
-        "state_code": "tu",
-        "country_code": "tn"
-    },
-    "sys": {
-        "country":{"oid":"5ab86c20fa40dea638993f50"},
-        "sunrise": "5:30",
-        "sunset": "6:00"
-    },
-    "main": {
-        "temp": 1.5,
-        "humidity": 89.0,
-        "pressure": 1010.3
-    },
-    "timestamp": new Date(),
-    "state": {"oid":"5ab94b9205e4eb8522c4afdc"}
+var dataCollected = { 
+    "coord" : {
+        "lng" : -7.36, 
+        "lat" : 53.99, 
+        "state_code" : "cn", 
+        "country_code" : "ie"
+    }, 
+    "sys" : {
+        "country" : "IE", 
+        "sunrise" : "07:10 AM", 
+        "sunset" : "08:00 PM"
+    }, 
+    "main" : {
+        "temp" : 0, 
+        "humidity" : 0, 
+        "pressure" : 0
+    }, 
+     "state": {"oid":"5ab94b9205e4eb8522c4afdc"}, 
+    "timestamp" : new Date()
+    
 };
-
-
 
 setInterval(function() {
     var SenseHatPromise = new Promise((resolve, reject) => {
@@ -36,6 +35,7 @@ setInterval(function() {
             dataCollected.main.temp = data.temperature.toFixed(3);
             dataCollected.main.humidity = data.humidity.toFixed(3);
             dataCollected.main.pressure = data.pressure.toFixed(3);
+            dataCollected.timestamp = new Date();
 
         })
         resolve(dataCollected);
@@ -52,7 +52,7 @@ setInterval(function() {
 function SenseHatData(alldata) {
 
     var options = {
-        uri: 'http://apicollector.nammumu.net:3002/weatherData',
+        uri: 'http://express.270bytes.com:3030/api/weatherData',
         method: 'POST',
         json: alldata
     };

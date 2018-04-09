@@ -74,5 +74,9 @@ module.exports = {
   vue2Dragula: 'Vue2 Dragula',
   dragAndDrop: 'Drag And Drop',
   vueDraggable: 'Vue Draggable',
-  draggableResizeable: 'Draggable Resizeable'
+  draggableResizeable: 'Draggable Resizeable',
+  weather_stations:'Weather stations',
+  transactions:'Transactions',
+  pricing:'Pricing',
+  map:'Map'
 }
