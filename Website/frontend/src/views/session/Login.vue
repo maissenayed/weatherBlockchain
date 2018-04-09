@@ -93,8 +93,14 @@
             localStorage.setItem('default-auth-token', res.data.token);
             this.$auth.check('true');
             console.log(res.data.userInfo);
-            localStorage.setItem('user', this.$auth.user().apiKeyEXP);
-
+            var CurrentUser= new Object({});
+            CurrentUser.role=res.data.userInfo.role;
+            CurrentUser.apiKeyEXP=res.data.userInfo.apiKeyEXP;
+            CurrentUser.username=res.data.userInfo.username;
+            CurrentUser.id=res.data.userInfo._id;
+            localStorage.setItem('user', JSON.stringify(CurrentUser));
+            let ba3=localStorage.getItem('user');
+             console.log(ba3);
           },
           error: function () {},
           method: 'POST',
