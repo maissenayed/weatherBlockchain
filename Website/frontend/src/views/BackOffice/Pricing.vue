@@ -1,82 +1,92 @@
 <template>
   <v-container fluid grid-list-xl py-0>
-    <div v-if="transaction_data">
-      <h3>Transaction information</h3>
-      <ul>
-        <li><b>From : </b>{{from}}</li>
-        <li><b>To : </b>{{to}}</li>
-        <li><b>Blockhash: </b>{{blockHash}}</li>
-        <li><b>BlockNumber: </b>{{blockNumber}}</li>
-        <li><b>Cumulative gas used : </b>{{cumulativeGasUsed}}</li>
-        <li><b>Gas used : </b>{{gasUsed}}</li>
-        <li><b>Transaction hash: </b>{{transactionHash}}</li>
-      </ul>
-    </div>
-    <div v-if="loaderGIF" style="text-align: center">
-      <p>Your transaction is being mined ... </p>
-      <img src="../../assets/EllipsisSpinner.gif" alt="EllipsisSpinner">
-    </div>
-    <div v-if="ctr" class="pricing-wrapper">
-      <v-layout row wrap>
-        <v-flex xs12 sm6 md6 lg4>
-          <div class="app-card text-xs-center">
-            <div class="app-card-title gradient-primary">
-              <h2 class="white--text">Ticket plan</h2>
-              <!--<p class="mb-0">For most of the users</p>-->
-            </div>
-            <div class="app-card-content">
-              <h2 class="mb-4 font-3x"><span class="font-xl">$10</span><sub>/10 Tickets</sub></h2>
-              <ul class="list-unstyled list-group-flush">
-                <li class="list-group-item">Personal use</li>
-                <li class="list-group-item">Full access</li>
-                <li class="list-group-item">24/7 support</li>
-              </ul>
-            </div>
-            <div class="app-footer">
-              <a href="javascript:;" class="btn btn-block btn-gradient-primary white--text" @click="topup(700000000000000, 10)">Buy now
-                ! </a>
-            </div>
+    <div class="app-card">
+      <div class="app-card-content">
+
+        <div>
+          <div v-if="transaction_data">
+            <h3>Transaction information</h3>
+            <ul>
+              <li><b>From : </b>{{from}}</li>
+              <li><b>To : </b>{{to}}</li>
+              <li><b>Blockhash: </b>{{blockHash}}</li>
+              <li><b>BlockNumber: </b>{{blockNumber}}</li>
+              <li><b>Cumulative gas used : </b>{{cumulativeGasUsed}}</li>
+              <li><b>Gas used : </b>{{gasUsed}}</li>
+              <li><b>Transaction hash: </b>{{transactionHash}}</li>
+            </ul>
           </div>
-        </v-flex>
-        <v-flex xs12 sm6 md6 lg4>
-          <div class="app-card text-xs-center">
-            <div class="app-card-title gradient-success">
-              <h2 class="white--text">Weekly plan</h2>
-              <!--<p class="mb-0">For most of the users</p>-->
-            </div>
-            <div class="app-card-content">
-              <h2 class="mb-4 font-3x"><span class="font-xl">$20</span><sub>/Week</sub></h2>
-              <ul class="list-unstyled list-group-flush">
-                <li class="list-group-item">Personal use</li>
-                <li class="list-group-item">Full access</li>
-                <li class="list-group-item">24/7 support</li>
-              </ul>
-            </div>
-            <div class="app-footer">
-              <a href="javascript:;" class="btn btn-block btn-gradient-success white--text" @click="topup(20000000000000000)">Buy now ! </a>
-            </div>
+          <div v-if="loaderGIF" style="text-align: center">
+            <p>Your transaction is being mined ... </p>
+            <img src="../../assets/EllipsisSpinner.gif" alt="EllipsisSpinner">
           </div>
-        </v-flex>
-        <v-flex xs12 sm6 md6 lg4>
-          <div class="app-card text-xs-center">
-            <div class="app-card-title gradient-warning">
-              <h2 class="white--text">Monthly plan</h2>
-              <!--<p class="mb-0">For developer</p>-->
-            </div>
-            <div class="app-card-content">
-              <h2 class="mb-4 font-3x"><span class="font-xl">$50</span><sub>/Month</sub></h2>
-              <ul class="list-unstyled list-group-flush">
-                <li class="list-group-item">Personal use</li>
-                <li class="list-group-item">Full access</li>
-                <li class="list-group-item">24/7 support</li>
-              </ul>
-            </div>
-            <div class="app-footer">
-              <a href="javascript:;" class="btn btn-block btn-gradient-warning white--text" @click="topup(80000000000000000)">Buy now ! </a>
-            </div>
+          <div v-if="ctr" class="pricing-wrapper">
+            <v-layout row wrap>
+              <v-flex xs12 sm6 md6 lg4>
+                <div class="app-card text-xs-center">
+                  <div class="app-card-title gradient-primary">
+                    <h2 class="white--text">Ticket plan</h2>
+                    <!--<p class="mb-0">For most of the users</p>-->
+                  </div>
+                  <div class="app-card-content">
+                    <h2 class="mb-4 font-3x"><span class="font-xl">$10</span><sub>/10 Tickets</sub></h2>
+                    <ul class="list-unstyled list-group-flush">
+                      <li class="list-group-item">Personal use</li>
+                      <li class="list-group-item">Full access</li>
+                      <li class="list-group-item">24/7 support</li>
+                    </ul>
+                  </div>
+                  <div class="app-footer">
+                    <a href="javascript:;" class="btn btn-block btn-gradient-primary white--text"
+                       @click="topup(700000000000000, 10)">Buy now
+                      ! </a>
+                  </div>
+                </div>
+              </v-flex>
+              <v-flex xs12 sm6 md6 lg4>
+                <div class="app-card text-xs-center">
+                  <div class="app-card-title gradient-success">
+                    <h2 class="white--text">Weekly plan</h2>
+                    <!--<p class="mb-0">For most of the users</p>-->
+                  </div>
+                  <div class="app-card-content">
+                    <h2 class="mb-4 font-3x"><span class="font-xl">$20</span><sub>/Week</sub></h2>
+                    <ul class="list-unstyled list-group-flush">
+                      <li class="list-group-item">Personal use</li>
+                      <li class="list-group-item">Full access</li>
+                      <li class="list-group-item">24/7 support</li>
+                    </ul>
+                  </div>
+                  <div class="app-footer">
+                    <a href="javascript:;" class="btn btn-block btn-gradient-success white--text"
+                       @click="topup(20000000000000000)">Buy now ! </a>
+                  </div>
+                </div>
+              </v-flex>
+              <v-flex xs12 sm6 md6 lg4>
+                <div class="app-card text-xs-center">
+                  <div class="app-card-title gradient-warning">
+                    <h2 class="white--text">Monthly plan</h2>
+                    <!--<p class="mb-0">For developer</p>-->
+                  </div>
+                  <div class="app-card-content">
+                    <h2 class="mb-4 font-3x"><span class="font-xl">$50</span><sub>/Month</sub></h2>
+                    <ul class="list-unstyled list-group-flush">
+                      <li class="list-group-item">Personal use</li>
+                      <li class="list-group-item">Full access</li>
+                      <li class="list-group-item">24/7 support</li>
+                    </ul>
+                  </div>
+                  <div class="app-footer">
+                    <a href="javascript:;" class="btn btn-block btn-gradient-warning white--text"
+                       @click="topup(80000000000000000)">Buy now ! </a>
+                  </div>
+                </div>
+              </v-flex>
+            </v-layout>
           </div>
-        </v-flex>
-      </v-layout>
+        </div>
+      </div>
     </div>
   </v-container>
 </template>
@@ -211,10 +221,10 @@
         var miniToken = this.initContract();
         const address = '0x48a9ca6e6cc7e5664ccc746213b3e3e6bf88e23d';
         let price = 0;
-        if (nb_ticket !== undefined){
-          price= ticket_price* nb_ticket;
+        if (nb_ticket !== undefined) {
+          price = ticket_price * nb_ticket;
         }
-        else{
+        else {
           price = ticket_price;
         }
 

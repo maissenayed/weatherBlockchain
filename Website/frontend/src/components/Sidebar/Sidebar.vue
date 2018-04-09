@@ -3,39 +3,7 @@
   <div class="sidebar" :class="sidebarFilter">
         <v-toolbar flat class="transparent scroll-area navigation">
           <v-list class="pa-0">
-            <v-list-tile avatar class="sidebar-profile">
-              <v-list-tile-avatar>
-                <img src="/static/img/user-11.jpg" />
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title class="fw-bold">John Leider</v-list-tile-title>
-              </v-list-tile-content>
-              <v-spacer></v-spacer>
-              <v-menu bottom left>
-                <v-btn icon slot="activator" class="ma-0">
-                  <v-icon>more_vert</v-icon>
-                </v-btn>
-                <v-list>
-                  <v-list-tile to="/users/user-profile">
-                    <v-icon class="mr-3 font-lg text-gray">ti-user</v-icon>
-                    <v-list-tile-title>View Profile</v-list-tile-title>
-                  </v-list-tile>
-                  <v-list-tile to="/inbox">
-                    <v-icon class="mr-3 font-lg text-gray">ti-email</v-icon>
-                    <v-list-tile-title>Inbox</v-list-tile-title>
-                  </v-list-tile>
-                  <v-list-tile to="/users/users-list">
-                    <v-icon class="mr-3 font-lg text-gray">ti-bell</v-icon>
-                    <v-list-tile-title>Users List</v-list-tile-title>
-                  </v-list-tile>
-                  <v-list-tile to="/session/login">
-                    <v-icon class="mr-3 font-lg text-gray">ti-power-off</v-icon>
-                    <v-list-tile-title>Log Out</v-list-tile-title>
-                  </v-list-tile>
-                </v-list>
-              </v-menu>
-            </v-list-tile>
-
+            <br>
             <template v-for="item in category1">
               <template v-if="item.items!= null">
                 <v-list-group

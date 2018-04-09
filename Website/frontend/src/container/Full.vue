@@ -11,9 +11,7 @@
           <h2 class="text-capitalize mb-0">{{pageTitle}}</h2>
           <div class="spacer"></div>
           <v-icon slot="divider">chevron_right</v-icon>
-          <v-breadcrumbs-item>
-            {{pageBreadcrumb}}
-          </v-breadcrumbs-item>
+
         </v-breadcrumbs>
       </v-container>
       <!-- App Router -->
