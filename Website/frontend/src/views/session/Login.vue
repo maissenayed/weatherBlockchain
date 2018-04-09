@@ -91,6 +91,8 @@
             this.$auth.token('default-auth-token', res.data.token);
             localStorage.setItem('default-auth-token', res.data.token);
             this.$auth.check('true');
+            console.log(res.data.userInfo);
+            localStorage.setItem('user', this.$auth.user().role);
 
           },
           error: function () {},
@@ -120,13 +122,15 @@
             })
               .then( (res)=> {
                 console.log(res.data);
+                console.log(res.data.userInfo);
                 self.$auth.user(res.data.userInfo);
                 console.log(this.$auth.user().role);
                 self.$auth.token('default-auth-token', res.data.token);
                 localStorage.setItem('default-auth-token', res.data.token);
+                localStorage.setItem('user', res.data.userInfo);
                 self.$auth.check('true');
                self.$router.push('/map');
-              console.log(response);
+
             })
              .catch(function (error) {
                // router.push('/session/sign-up');

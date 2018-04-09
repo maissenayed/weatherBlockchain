@@ -93,7 +93,8 @@ export default new Router({
       component: home,
       name: 'home'
     },
-    {path:'/map',component:WorldMap},
+    {path:'/map',component:WorldMap,meta: {
+        auth: false}},
     {path:'/map/:country',component:CountrydMap,props: true , meta: {
         auth: {roles: 'admin', redirect: '/map/:country', forbiddenRedirect: '/admin/403'}}
       }
