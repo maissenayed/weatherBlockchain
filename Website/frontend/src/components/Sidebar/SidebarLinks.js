@@ -8,9 +8,27 @@ export const category1 = [
   },
   {
     action: 'ti-cloud',
-    title: 'weather stations',
+    title: 'weather_stations',
     items: null,
     path: '/admin/weatherStations'
+  },
+  {
+    action: 'ti-server',
+    title: 'transactions',
+    items: null,
+    path: '/admin/transactions'
+  },
+  {
+    action: 'ti-money',
+    title: 'pricing',
+    items: null,
+    path: '/admin/pricing'
+  },
+  {
+    action: 'ti-map-alt',
+    title: 'map',
+    items: null,
+    path: '/map'
   }
   // {
   //   action: 'ti-dashboard',
