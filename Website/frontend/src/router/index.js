@@ -103,10 +103,11 @@ export default new Router({
       name: 'home'
     },
     {path:'/map',component:WorldMap,meta: {
-        auth: false}},
+        auth: {roles: 'admin', redirect: 'session/login'}
+    }},
     {path:'/map/:country',component:CountrydMap,props: true , meta: {
-        auth: {roles: 'admin', redirect: '/map/:country', forbiddenRedirect: '/admin/403'}}
-      }
+        auth: {roles: 'admin', redirect: 'session/login'}
+      }}
 
   ],
   mode:"history"

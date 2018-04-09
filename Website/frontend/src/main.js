@@ -72,9 +72,9 @@ Vue.use(Lang)
 Vue.config.productionTip = false
 Vue.router = router
 Vue.use(require('@websanova/vue-auth'), {
-  auth: require('@websanova/vue-auth/drivers/auth/basic.js'),
-  http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
-  router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
+  auth: require('@websanova/vue-auth/drivers/auth/basic'),
+  http: require('@websanova/vue-auth/drivers/http/axios.1.x'),
+  router: require('@websanova/vue-auth/drivers/router/vue-router.2.x'),
   token: [{request: 'Authorization', response: 'Authorization', authType: 'bearer', foundIn: 'header'}, {request: 'token', response: 'token', authType: 'bearer', foundIn: 'response'}],
   tokenDefaultName: 'default-auth-token',
  // refreshData: {url: 'auth/refresh', method: 'GET', enabled: false, interval: 0},

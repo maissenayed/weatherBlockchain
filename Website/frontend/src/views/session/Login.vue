@@ -88,17 +88,18 @@
            console.log(res.data);
             this.$auth.user(res.data.userInfo);
             console.log(this.$auth.user().role);
+            localStorage.clear();
             this.$auth.token('default-auth-token', res.data.token);
             localStorage.setItem('default-auth-token', res.data.token);
             this.$auth.check('true');
             console.log(res.data.userInfo);
-            localStorage.setItem('user', this.$auth.user().role);
+            localStorage.setItem('user', this.$auth.user().apiKeyEXP);
 
           },
           error: function () {},
           method: 'POST',
           rememberMe: true,
-          redirect: '/admin/userList',
+          redirect: '/map',
           fetchUser: true,
           headers: {
             'Content-type': 'application/x-www-form-urlencoded'
