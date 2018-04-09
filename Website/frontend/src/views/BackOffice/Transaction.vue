@@ -3,7 +3,7 @@
     <div class="app-card">
       <div class="app-card-content">
         <div>
-          <v-app id="inspire">
+
             <v-data-table
               :headers="headers"
               :items="items"
@@ -18,7 +18,7 @@
               </template>
 
             </v-data-table>
-          </v-app>
+
         </div>
       </div>
     </div>

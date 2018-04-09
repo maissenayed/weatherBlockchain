@@ -41,7 +41,7 @@ export default new Router({
           path: '/admin/userlist',
           component: AdminUserList,
           meta: {
-            title: 'User List',
+            title: 'Users',
             breadcrumb: 'admin / User List',
 
           }

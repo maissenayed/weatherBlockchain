@@ -97,8 +97,8 @@ export default {
   },
   notifications: {
     showSuccessMessage: { // You can have any name you want instead of 'showLoginError'
-      title: 'Welcome To Vuely',
-      message: 'A beautiful VueJs dashboard for every web developer.',
+      title: 'Welcome To Nammumu',
+      message: 'A beautiful VueJs web app for everyone',
       type: 'success', // You also can use 'VueNotifications.types.error' instead of 'error'
       timeout: 2500
     }
