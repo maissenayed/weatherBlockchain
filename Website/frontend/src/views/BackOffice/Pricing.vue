@@ -1,33 +1,20 @@
 <template>
   <v-container fluid grid-list-xl py-0>
     <div v-if="transaction_data">
+      <h3>Transaction information</h3>
       <ul>
-        <li>{{blockHash}}</li>
-        <li>{{blockNumber}}</li>
-        <li>{{cumulativeGasUsed}}</li>
-        <li>{{from}}</li>
-        <li>{{to}}</li>
-        <li>{{gasUsed}}</li>
-        <li>{{transactionHash}}</li>
-
+        <li><b>From : </b>{{from}}</li>
+        <li><b>To : </b>{{to}}</li>
+        <li><b>Blockhash: </b>{{blockHash}}</li>
+        <li><b>BlockNumber: </b>{{blockNumber}}</li>
+        <li><b>Cumulative gas used : </b>{{cumulativeGasUsed}}</li>
+        <li><b>Gas used : </b>{{gasUsed}}</li>
+        <li><b>Transaction hash: </b>{{transactionHash}}</li>
       </ul>
     </div>
-    <div v-if="weather_data">
-      <h3>Weather data : </h3>
-      <ul id="json_weather_data"></ul>
-    </div>
-    <div v-if="dragon" id="loader">
-      <!--<p>The transaction is still being mined</p>
-      <img class="centerLoader" src="./images/EllipsisSpinner.gif" alt="EllipsisSpinner.gif">-->
-      <div id="world"></div>
-      <div id="instructions">The longer you keep clicking, the faster your transaction gets mined ... <br/><span
-        class="lightInstructions">- Press and drag to turn around -</span></div>
-      <div id="credits">
-        <p><a href="https://codepen.io/Yakudoo/" target="blank">my other codepens</a> | <a href="https://www.epic.net"
-                                                                                           target="blank">epic.net</a>
-        </p>
-      </div>
-      <div id="power">00</div>
+    <div v-if="loaderGIF" style="text-align: center">
+      <p>Your transaction is being mined ... </p>
+      <img src="../../assets/EllipsisSpinner.gif" alt="EllipsisSpinner">
     </div>
     <div v-if="ctr" class="pricing-wrapper">
       <v-layout row wrap>
@@ -46,7 +33,7 @@
               </ul>
             </div>
             <div class="app-footer">
-              <a href="javascript:;" class="btn btn-block btn-gradient-primary white--text" @click="buyTicket">Buy now
+              <a href="javascript:;" class="btn btn-block btn-gradient-primary white--text" @click="topup(700000000000000, 10)">Buy now
                 ! </a>
             </div>
           </div>
@@ -66,7 +53,7 @@
               </ul>
             </div>
             <div class="app-footer">
-              <a href="javascript:;" class="btn btn-block btn-gradient-success white--text">Buy now ! </a>
+              <a href="javascript:;" class="btn btn-block btn-gradient-success white--text" @click="topup(20000000000000000)">Buy now ! </a>
             </div>
           </div>
         </v-flex>
@@ -85,7 +72,7 @@
               </ul>
             </div>
             <div class="app-footer">
-              <a href="javascript:;" class="btn btn-block btn-gradient-warning white--text">Buy now ! </a>
+              <a href="javascript:;" class="btn btn-block btn-gradient-warning white--text" @click="topup(80000000000000000)">Buy now ! </a>
             </div>
           </div>
         </v-flex>
@@ -95,7 +82,6 @@
 </template>
 <script>
   import {default as Web3} from 'web3';
-  import axios from 'axios'
 
 
   export default {
@@ -103,7 +89,7 @@
     props: {},
     data() {
       return {
-        dragon: false,
+        loaderGIF: false,
         ctr: true,
         transaction_data: false,
         blockHash: '',
@@ -112,14 +98,10 @@
         from: '',
         gasUsed: '',
         to: '',
-        transactionHash: '',
-        weather_data: false
+        transactionHash: ''
       }
     },
     methods: {
-      buyTicket() {
-        this.topup(1000, 10);
-      },
       initContract() {
         const address = '0x48a9ca6e6cc7e5664ccc746213b3e3e6bf88e23d';
         const abi = [
@@ -228,29 +210,37 @@
       topup(ticket_price, nb_ticket) {
         var miniToken = this.initContract();
         const address = '0x48a9ca6e6cc7e5664ccc746213b3e3e6bf88e23d';
+        let price = 0;
+        if (nb_ticket !== undefined){
+          price= ticket_price* nb_ticket;
+        }
+        else{
+          price = ticket_price;
+        }
+
         web3.eth.sendTransaction({
           to: address,
           from: web3.eth.accounts[0],
-          value: 7000000000000000,
+          value: price,
           gas: 1000000
-        }, function (err, res) {
+        }, (err, res) => {
           if (err)
             console.log(err);
           else {
             console.log(res);
-            this.dragon = true;
+            this.loaderGIF = true;
             this.ctr = false;
 
 
-            var miningTransaction = setInterval(function () {
-              txReceipt = web3.eth.getTransactionReceipt(res, function (err, response) {
+            var miningTransaction = setInterval(() => {
+              txReceipt = web3.eth.getTransactionReceipt(res, (err, response) => {
                 if (err)
                   console.log(err);
                 else {
                   if (response !== null) {
                     console.log(response);
                     clearInterval(miningTransaction);
-                    this.dragon = false;
+                    this.loaderGIF = false;
 
 
                     this.blockHash = response.blockHash;
@@ -261,28 +251,11 @@
                     this.to = response.to;
                     this.transactionHash = response.transactionHash;
 
-                    axios.get('http://localhost:3002/weatherData')
-                      .then(function (response) {
-                        response = response.data;
-                        for (i = 0; i < response.length; i++) {
-                          var e = document.createElement('li');
-                          e.innerHTML = 'latitude : ' + response[i].coord.lat + ',longitude : ' + response[i].coord.lng +
-                            ',temperature :' + response[i].main.temp + ', humidity : ' +
-                            response[i].main.humidity + ', pressure :' + response[i].main.pressure;
-                          document.getElementById('json_weather_data').appendChild(e);
-
-                        }
-                      })
-                      .catch((error) => {
-                      });
-
-
                     this.transaction_data = true;
-                    this.weather_data = true;
+
 
                   }
                   else {
-
                     console.log('transaction still being mined')
                   }
                 }
@@ -296,26 +269,9 @@
     mounted() {
       if (typeof web3 !== 'undefined') {
         web3 = new Web3(web3.currentProvider);
-        console.log(web3);
       } else {
-        this.error_msg = 'No web3? You should consider trying MetaMask!';
-        this.display_error = true;
+        console.log('No web3? You should consider trying MetaMask!');
       }
-    },
-    created() {
-      let tweenMaxScript = document.createElement('script')
-      let threeScript = document.createElement('script')
-      let orbitControlsScript = document.createElement('script')
-      let dragonScript = document.createElement('script')
-      //todo : import those from local
-      tweenMaxScript.setAttribute('src', 'http://cdnjs.cloudflare.com/ajax/libs/gsap/1.16.1/TweenMax.min.js')
-      threeScript.setAttribute('src', 'http://cdnjs.cloudflare.com/ajax/libs/three.js/r70/three.min.js')
-      orbitControlsScript.setAttribute('src', 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/264161/OrbitControls.js')
-      dragonScript.setAttribute('src', 'assets/js/dragon.js');
-      document.head.appendChild(tweenMaxScript)
-      document.head.appendChild(threeScript)
-      document.head.appendChild(orbitControlsScript)
-      document.head.appendChild(dragonScript)
     }
   }
 </script>
