@@ -149,18 +149,46 @@
 
     },
     mounted() {
+
       EventBus.$on('addBalanceTicket', payload => {
         this.token_balance += payload;
+        var userFromForm = {
+          token_balance: this.token_balance
+        };
+        axios.put(this.USER_URL + '/' + this.loggedUser.id+'/TB', userFromForm)
+          .then((response) => {
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
       })
       EventBus.$on('addWeekToExpiration', payload => {
 
         this.apiExpirationDate = new Date(this.apiExpirationDate);
         this.apiExpirationDate.setDate(this.apiExpirationDate.getDate() + payload);
+        var userFromForm = {
+          apiExpirationDate: this.apiExpirationDate
+        };
+        axios.put(this.USER_URL + '/' + this.loggedUser.id+'/AED', userFromForm)
+          .then((response) => {
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
 
       })
       EventBus.$on('addMonthToExpiration', payload => {
         this.apiExpirationDate = new Date(this.apiExpirationDate);
         this.apiExpirationDate.setDate(this.apiExpirationDate.getDate() + payload);
+        var userFromForm = {
+          apiExpirationDate: this.apiExpirationDate
+        };
+        axios.put(this.USER_URL + '/' + this.loggedUser.id+'/AED', userFromForm)
+          .then((response) => {
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
       })
     },
     computed: {

@@ -31,7 +31,7 @@ router.get('/:id', function (req, res, next) {
             return res.sendStatus(404);
         }
         else {
-          return res.json(userFound);
+            return res.json(userFound);
         }
     });
 });
@@ -47,7 +47,7 @@ router.post('/', function (req, res) {
 router.delete('/:id', function (req, res) {
 
     var id = req.params.id;
-    User.findByIdAndRemove({_id:id}, function (err, userFound) {
+    User.findByIdAndRemove({_id: id}, function (err, userFound) {
         if (err)
             res.send(err);
         else
@@ -55,29 +55,58 @@ router.delete('/:id', function (req, res) {
     });
 
 });
-router.put('/:id', function (req, res) {
+router.put('/:id/:TBorAED?', function (req, res) {
+    if (!req.params.TBorAED) {
+        var salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
+        var password = bcrypt.hashSync(req.body.password, salt);
 
-    var salt = bcrypt.genSaltSync(SALT_WORK_FACTOR);
-    var password = bcrypt.hashSync(req.body.password, salt);
 
-
-    User.findOneAndUpdate({_id: req.params.id},
-        {$set:{
-            wallet_adr: req.body.wallet_adr,
-            token_balance: req.body.token_balance,
-            apiExpirationDate: req.body.apiExpirationDate,
-            apiKey: req.body.apiKey,
-            username: req.body.username,
-            password: password,
-            role: req.body.role
-            }
-        }, function (err, updatedUser) {
-            if (err)
-                res.json(err);
-            else {
-                res.json(updatedUser);
-            }
-        });
-
+        User.findOneAndUpdate({_id: req.params.id},
+            {
+                $set: {
+                    wallet_adr: req.body.wallet_adr,
+                    token_balance: req.body.token_balance,
+                    apiExpirationDate: req.body.apiExpirationDate,
+                    apiKey: req.body.apiKey,
+                    username: req.body.username,
+                    password: password,
+                    role: req.body.role
+                }
+            }, function (err, updatedUser) {
+                if (err)
+                    res.json(err);
+                else {
+                    res.json(updatedUser);
+                }
+            });
+    }
+    else if (req.params.TBorAED === "TB"){
+        User.findOneAndUpdate({_id: req.params.id},
+            {
+                $set: {
+                    token_balance: req.body.token_balance
+                }
+            }, function (err, updatedUser) {
+                if (err)
+                    res.json(err);
+                else {
+                    res.json(updatedUser);
+                }
+            });
+    }
+    else{
+        User.findOneAndUpdate({_id: req.params.id},
+            {
+                $set: {
+                    apiExpirationDate: req.body.apiExpirationDate
+                }
+            }, function (err, updatedUser) {
+                if (err)
+                    res.json(err);
+                else {
+                    res.json(updatedUser);
+                }
+            });
+    }
 });
 module.exports = router;

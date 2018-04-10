@@ -267,6 +267,7 @@
 
                     if (typeof nb_Ticket_Or_Type_Of_Offer!== "string") {
                       EventBus.$emit('addBalanceTicket',10);
+
                     }
                     else if(nb_Ticket_Or_Type_Of_Offer=== "week") {
                       console.log('week')
