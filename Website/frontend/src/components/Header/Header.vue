@@ -1,4 +1,3 @@
-<!-- Header Structure -->
 <template>
   <div>
     <v-navigation-drawer
@@ -25,21 +24,7 @@
       <v-spacer></v-spacer>
       <div class="right-nav">
         <!-- App Searchbar -->
-        <span style="color:white">Token balance : {{token_balance}} </span>
-        <span style="color:white;padding-left: 20px;">API expiration date : {{apiExpirationDate| formatDate}} </span>
 
-        <!--   <v-btn icon @click="searchFormHanler" class="d-inline-50">
-             <i class="ti-search"></i>
-           </v-btn>
-           <div class="search" :class="{ 'search&#45;&#45;open': searchFormOpen }">
-             <button id="btn-search-close" class="btn btn&#45;&#45;search-close" aria-label="Close search form" @click="searchFormHanler">
-               <i class="ti-close"></i>
-             </button>
-             <form class="search__form" action="">
-               <input class="search__input" name="search" type="search" placeholder="Search" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-               <span class="search__info">Search Anything</span>
-             </form>
-           </div>-->
         <v-btn icon @click="toggleFullScreen" class="d-inline-50">
           <i class="ti-fullscreen"></i>
         </v-btn>
@@ -102,10 +87,6 @@
   export default {
     data() {
       return {
-        apiExpirationDate: new Date(),
-        token_balance: 0,
-        USER_URL: 'http://localhost:3030/users',
-        loggedUser: null,
         collapsed: false, // collapse sidebar
         drawer: true, // sidebar drawer default true
         chatSidebar: false, // chat component right sidebar
@@ -135,61 +116,9 @@
       };
     },
     created() {
-      this.loggedUser = JSON.parse(localStorage.getItem('user'));
-      axios.get(this.USER_URL + '/' + this.loggedUser.id)
-        .then((response) => {
-
-          this.token_balance = response.data.token_balance;
-          this.apiExpirationDate = response.data.apiExpirationDate;
-
-          this.apiExpirationDate = new Date(this.apiExpirationDate);
-        })
-        .catch((error) => {
-        });
-
     },
     mounted() {
 
-      EventBus.$on('addBalanceTicket', payload => {
-        this.token_balance += payload;
-        var userFromForm = {
-          token_balance: this.token_balance
-        };
-        axios.put(this.USER_URL + '/' + this.loggedUser.id+'/TB', userFromForm)
-          .then((response) => {
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-      })
-      EventBus.$on('addWeekToExpiration', payload => {
-
-        this.apiExpirationDate = new Date(this.apiExpirationDate);
-        this.apiExpirationDate.setDate(this.apiExpirationDate.getDate() + payload);
-        var userFromForm = {
-          apiExpirationDate: this.apiExpirationDate
-        };
-        axios.put(this.USER_URL + '/' + this.loggedUser.id+'/AED', userFromForm)
-          .then((response) => {
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-
-      })
-      EventBus.$on('addMonthToExpiration', payload => {
-        this.apiExpirationDate = new Date(this.apiExpirationDate);
-        this.apiExpirationDate.setDate(this.apiExpirationDate.getDate() + payload);
-        var userFromForm = {
-          apiExpirationDate: this.apiExpirationDate
-        };
-        axios.put(this.USER_URL + '/' + this.loggedUser.id+'/AED', userFromForm)
-          .then((response) => {
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-      })
     },
     computed: {
       // computed property to get the state of collapsed sidebar

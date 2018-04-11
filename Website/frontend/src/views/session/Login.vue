@@ -4,7 +4,7 @@
       <v-layout row wrap>
         <v-flex xs12 sm10 md6 lg5 mx-auto>
           <div class="mb-70">
-            <router-link to="/" class="d-block text-xs-center"><img src="/static/img/session-logo.png" /></router-link>
+            <router-link to="/" class="d-block text-xs-center"><img src="/static/img/session-logo.png"/></router-link>
           </div>
           <div class="session-block">
             <div class="session-head text-xs-center">
@@ -18,9 +18,9 @@
               <p>There was an error, unable to sign in with those credentials.</p>
             </div>
             <form autocomplete="off" @submit.prevent="login" method="post" class="mb-4">
-              <v-text-field label="UserName" v-model="name"  required></v-text-field>
-              <v-text-field label="Password" v-model="password" type="password"  required></v-text-field>
-              <v-checkbox label="Remember me"  ></v-checkbox>
+              <v-text-field label="UserName" v-model="name" required></v-text-field>
+              <v-text-field label="Password" v-model="password" type="password" required></v-text-field>
+              <v-checkbox label="Remember me"></v-checkbox>
 
 
               <v-layout row>
@@ -37,10 +37,12 @@
                 </v-flex>
               </v-layout>
 
-              <v-btn  block large color="warning">Create Account</v-btn>
+              <v-btn block large color="warning">Create Account</v-btn>
 
             </form>
-            <p class="text-xs-center mb-0 log-link"><router-link to="/session/login">Forgot password?</router-link></p>
+            <p class="text-xs-center mb-0 log-link">
+              <router-link to="/session/login">Forgot password?</router-link>
+            </p>
           </div>
         </v-flex>
       </v-layout>
@@ -51,10 +53,12 @@
 <script>
   import {default as Web3} from 'web3';
   import axios from 'axios';
+
   var qs = require('qs');
   export default {
-    data(){
+    data() {
       return {
+        REDIRECT_URL: '/pricing',
         name: "",
         password: "",
         error: false,
@@ -66,26 +70,27 @@
         unlock_error: false,
       }
     },
-  mounted() {
-    if (typeof web3 !== 'undefined') {
-      // Use Mist/MetaMask's provider
-      this.display_error = false;
-      web3 = new Web3(web3.currentProvider);
+    mounted() {
+      if (typeof web3 !== 'undefined') {
+        // Use Mist/MetaMask's provider
+        this.display_error = false;
+        web3 = new Web3(web3.currentProvider);
 
-    } else {
-      this.error_msg = 'No web3? You should consider trying MetaMask!';
-      this.display_error = true;
-    }
-  },
+      } else {
+        this.error_msg = 'No web3? You should consider trying MetaMask!';
+        this.display_error = true;
+      }
+    },
     methods: {
-      login(){
+      login() {
         this.$auth.login({
-          data:qs.stringify({
+          data: qs.stringify({
             name: this.name,
             password: this.password,
-          }) ,
-          success: function (res) {console.log(res.data.token);
-           console.log(res.data);
+          }),
+          success: function (res) {
+            console.log(res.data.token);
+            console.log(res.data);
             this.$auth.user(res.data.userInfo);
             console.log(this.$auth.user().role);
             localStorage.clear();
@@ -93,19 +98,29 @@
             localStorage.setItem('default-auth-token', res.data.token);
             this.$auth.check('true');
             console.log(res.data.userInfo);
-            var CurrentUser= new Object({});
-            CurrentUser.role=res.data.userInfo.role;
-            CurrentUser.apiKeyEXP=res.data.userInfo.apiKeyEXP;
-            CurrentUser.username=res.data.userInfo.username;
-            CurrentUser.id=res.data.userInfo._id;
+            var CurrentUser = new Object({});
+            CurrentUser.role = res.data.userInfo.role;
+            CurrentUser.apiKeyEXP = res.data.userInfo.apiKeyEXP;
+            CurrentUser.username = res.data.userInfo.username;
+            CurrentUser.id = res.data.userInfo._id;
+            CurrentUser.token_balance = res.data.userInfo.token_balance;
+
             localStorage.setItem('user', JSON.stringify(CurrentUser));
-            let ba3=localStorage.getItem('user');
-             console.log(ba3);
+            let usrJWTToken = JSON.parse(localStorage.getItem('user'));
+            console.log(usrJWTToken.token_balance !== 0)
+            /*if(usrJWTToken.token_balance !== 0 || usrJWTToken.apiKeyEXP !== new Date()){
+              var redirect = this.$auth.redirect();
+
+              this.$auth.login({
+                redirect: "/map"
+              });
+            }*/
           },
-          error: function () {},
+          error: function () {
+          },
           method: 'POST',
           rememberMe: true,
-          redirect: '/admin/userList',
+          redirect: this.REDIRECT_URL,
           fetchUser: true,
           headers: {
             'Content-type': 'application/x-www-form-urlencoded'
@@ -113,7 +128,7 @@
         });
 
       },
-      sign (account) {
+      sign(account) {
         let self = this;
         web3.personal.sign(web3.toHex("270bytes weather"), account, (err, res) => {
           if (err == null) {
@@ -122,12 +137,12 @@
               address: account,
               signature: res
 
-            }),{
+            }), {
               headers: {
                 'Content-type': 'application/x-www-form-urlencoded'
               }
             })
-              .then( (res)=> {
+              .then((res) => {
                 console.log(res.data);
                 console.log(res.data.userInfo);
                 self.$auth.user(res.data.userInfo);
@@ -136,11 +151,11 @@
                 localStorage.setItem('default-auth-token', res.data.token);
                 localStorage.setItem('user', res.data.userInfo);
                 self.$auth.check('true');
-               self.$router.push('/map');
+                self.$router.push('/map');
 
-            })
-             .catch(function (error) {
-               // router.push('/session/sign-up');
+              })
+              .catch(function (error) {
+                // router.push('/session/sign-up');
                 console.log(error);
               });
 

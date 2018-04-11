@@ -1,15 +1,11 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
 // layout components
 import Full from '@/container/Full'
-
 // Pages views
 import Blank from '@/views/pages/Blank'
-
 //home
 import home from '@/views/FrontOffice/home'
-
 // session components
 import SignUp from '@/views/session/SignUp'
 import Login from '@/views/session/Login'
@@ -17,9 +13,10 @@ import LockScreen from '@/views/session/LockScreen'
 import AdminUserList from '@/views/BackOffice/userList'
 import Transaction from '@/views/BackOffice/Transaction'
 import WeatherStation from '@/views/BackOffice/WeatherStation'
-import Pricing from '@/views/BackOffice/Pricing'
 import WorldMap from '@/views/FrontOffice/worldMap'
 import CountrydMap from '@/views/FrontOffice/countryMap'
+import Pricing from '@/views/FrontOffice/Pricing'
+
 Vue.use(Router)
 
 export default new Router({
@@ -37,7 +34,7 @@ export default new Router({
             title: 'Blank',
             breadcrumb: 'Pages / Blank'
           }
-        },{
+        }, {
           path: '/admin/userlist',
           component: AdminUserList,
           meta: {
@@ -47,27 +44,19 @@ export default new Router({
           }
         },
         {
-          path: '/admin/weatherStations' ,
-          component :WeatherStation,
-          meta:{
-            title:'Weather stations',
+          path: '/admin/weatherStations',
+          component: WeatherStation,
+          meta: {
+            title: 'Weather stations',
             breadcrumb: 'admin / Weather stations'
           }
         },
         {
-          path: '/admin/transactions' ,
-          component :Transaction,
-          meta:{
-            title:'Transactions',
+          path: '/admin/transactions',
+          component: Transaction,
+          meta: {
+            title: 'Transactions',
             breadcrumb: 'admin / Transactions'
-          }
-        },
-        {
-          path: '/admin/pricing' ,
-          component :Pricing,
-          meta:{
-            title:'Pricing',
-            breadcrumb: 'admin / Pricing'
           }
         }
       ]
@@ -102,13 +91,22 @@ export default new Router({
       component: home,
       name: 'home'
     },
-    {path:'/map',component:WorldMap,meta: {
+    {
+      path: '/pricing', component: Pricing, meta: {
         auth: {roles: 'admin', redirect: 'session/login'}
-    }},
-    {path:'/map/:country',component:CountrydMap,props: true , meta: {
+      }
+    },
+    {
+      path: '/map', component: WorldMap, meta: {
         auth: {roles: 'admin', redirect: 'session/login'}
-      }}
+      }
+    },
+    {
+      path: '/map/:country', component: CountrydMap, props: true, meta: {
+        auth: {roles: 'admin', redirect: 'session/login'}
+      }
+    }
 
   ],
-  mode:"history"
+  mode: "history"
 })

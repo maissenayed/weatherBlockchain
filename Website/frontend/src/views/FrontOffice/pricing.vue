@@ -1,269 +1,308 @@
 <template>
-    <v-app light>
-  <app-header></app-header>
-<h1 class="title">Hover over the cards</h1>
+  <div>
+    <app-header></app-header>
+    <v-container fluid grid-list-xl py-0>
 
-<div id="app" class="container">
-  <card data-image="https://images.unsplash.com/photo-1479660656269-197ebb83b540?dpr=2&auto=compress,format&fit=crop&w=1199&h=798&q=80&cs=tinysrgb&crop=">
-    <h1 slot="header">Canyons</h1>
-    <p slot="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-  </card>
-  <card data-image="https://images.unsplash.com/photo-1479659929431-4342107adfc1?dpr=2&auto=compress,format&fit=crop&w=1199&h=799&q=80&cs=tinysrgb&crop=">
-    <h1 slot="header">Beaches</h1>
-    <p slot="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-  </card>
-  <card data-image="https://images.unsplash.com/photo-1479644025832-60dabb8be2a1?dpr=2&auto=compress,format&fit=crop&w=1199&h=799&q=80&cs=tinysrgb&crop=">
-    <h1 slot="header">Trees</h1>
-    <p slot="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-  </card>
-  <card data-image="https://images.unsplash.com/photo-1479621051492-5a6f9bd9e51a?dpr=2&auto=compress,format&fit=crop&w=1199&h=811&q=80&cs=tinysrgb&crop=">
-    <h1 slot="header">Lakes</h1>
-    <p slot="content">Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-  </card>
-</div>
+      <div style="margin-top: 80px">
 
-
-</v-app>
-</template>
-
-<script>
-  import Header from './header';
-    export default {
-      components:{
-        'app-header':Header,
-        'card':{
-        template: `
-    <div class="card-wrap"
-      @mousemove="handleMouseMove"
-      @mouseenter="handleMouseEnter"
-      @mouseleave="handleMouseLeave"
-      ref="card">
-      <div class="card"
-        :style="cardStyle">
-        <div class="card-bg" :style="[cardBgTransform, cardBgImage]"></div>
-        <div class="card-info">
-          <slot name="header"></slot>
-          <slot name="content"></slot>
+        <div v-if="transaction_data">
+          <h3>Transaction information</h3>
+          <ul>
+            <li><b>From : </b>{{from}}</li>
+            <li><b>To : </b>{{to}}</li>
+            <li><b>Blockhash: </b>{{blockHash}}</li>
+            <li><b>BlockNumber: </b>{{blockNumber}}</li>
+            <li><b>Cumulative gas used : </b>{{cumulativeGasUsed}}</li>
+            <li><b>Gas used : </b>{{gasUsed}}</li>
+            <li><b>Transaction hash: </b>{{transactionHash}}</li>
+          </ul>
+        </div>
+        <div v-if="loaderGIF" style="text-align: center">
+          <p>Your transaction is being mined ... </p>
+          <img src="../../assets/EllipsisSpinner.gif" alt="EllipsisSpinner">
+        </div>
+        <div v-if="ctr" class="pricing-wrapper">
+          <v-layout row wrap>
+            <v-flex xs12 sm6 md6 lg4>
+              <div class="app-card text-xs-center">
+                <div class="app-card-title gradient-primary">
+                  <h2 class="white--text">Ticket plan</h2>
+                  <!--<p class="mb-0">For most of the users</p>-->
+                </div>
+                <div class="app-card-content">
+                  <h2 class="mb-4 font-3x"><span class="font-xl">$10</span><sub>/10 Tickets</sub></h2>
+                  <ul class="list-unstyled list-group-flush">
+                    <li class="list-group-item">Personal use</li>
+                    <li class="list-group-item">Full access</li>
+                    <li class="list-group-item">24/7 support</li>
+                  </ul>
+                </div>
+                <div class="app-footer">
+                  <a href="javascript:;" class="btn btn-block btn-gradient-primary white--text"
+                     @click="topup(700000000000000, 10)">Buy now
+                    ! </a>
+                </div>
+              </div>
+            </v-flex>
+            <v-flex xs12 sm6 md6 lg4>
+              <div class="app-card text-xs-center">
+                <div class="app-card-title gradient-success">
+                  <h2 class="white--text">Weekly plan</h2>
+                  <!--<p class="mb-0">For most of the users</p>-->
+                </div>
+                <div class="app-card-content">
+                  <h2 class="mb-4 font-3x"><span class="font-xl">$20</span><sub>/Week</sub></h2>
+                  <ul class="list-unstyled list-group-flush">
+                    <li class="list-group-item">Personal use</li>
+                    <li class="list-group-item">Full access</li>
+                    <li class="list-group-item">24/7 support</li>
+                  </ul>
+                </div>
+                <div class="app-footer">
+                  <a href="javascript:;" class="btn btn-block btn-gradient-success white--text"
+                     @click="topup(20000000000000000,'week')">Buy now ! </a>
+                </div>
+              </div>
+            </v-flex>
+            <v-flex xs12 sm6 md6 lg4>
+              <div class="app-card text-xs-center">
+                <div class="app-card-title gradient-warning">
+                  <h2 class="white--text">Monthly plan</h2>
+                  <!--<p class="mb-0">For developer</p>-->
+                </div>
+                <div class="app-card-content">
+                  <h2 class="mb-4 font-3x"><span class="font-xl">$50</span><sub>/Month</sub></h2>
+                  <ul class="list-unstyled list-group-flush">
+                    <li class="list-group-item">Personal use</li>
+                    <li class="list-group-item">Full access</li>
+                    <li class="list-group-item">24/7 support</li>
+                  </ul>
+                </div>
+                <div class="app-footer">
+                  <a href="javascript:;" class="btn btn-block btn-gradient-warning white--text"
+                     @click="topup(80000000000000000,'month')">Buy now ! </a>
+                </div>
+              </div>
+            </v-flex>
+          </v-layout>
         </div>
       </div>
-    </div>`,
-        mounted() {
-          this.width = this.$refs.card.offsetWidth;
-          this.height = this.$refs.card.offsetHeight;
-        },
-        props: ['dataImage'],
-        data: () => ({
-          width: 0,
-          height: 0,
-          mouseX: 0,
-          mouseY: 0,
-          mouseLeaveDelay: null
-        }),
-        computed: {
-          mousePX() {
-            return this.mouseX / this.width;
+
+    </v-container>
+  </div>
+</template>
+<script>
+  import {default as Web3} from 'web3';
+  import {EventBus} from '../../lib/eventBus';
+  import Header from './header';
+
+  export default {
+    name: 'Pricing',
+    props: {},
+    components: {
+
+      'app-header': Header,
+
+    },
+    data() {
+      return {
+        loaderGIF: false,
+        ctr: true,
+        transaction_data: false,
+        blockHash: '',
+        blockNumber: '',
+        cumulativeGasUsed: '',
+        from: '',
+        gasUsed: '',
+        to: '',
+        transactionHash: ''
+      }
+    },
+    methods: {
+      initContract() {
+        const address = '0x48a9ca6e6cc7e5664ccc746213b3e3e6bf88e23d';
+        const abi = [
+          {
+            "constant": false,
+            "inputs": [],
+            "name": "cashout",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
           },
-          mousePY() {
-            return this.mouseY / this.height;
+          {
+            "constant": false,
+            "inputs": [
+              {
+                "name": "amountMonth",
+                "type": "uint256"
+              }
+            ],
+            "name": "changeMonthprice",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
           },
-          cardStyle() {
-            const rX = this.mousePX * 30;
-            const rY = this.mousePY * -30;
-            return {
-              transform: `rotateY(${rX}deg) rotateX(${rY}deg)`
-            };
+          {
+            "constant": false,
+            "inputs": [
+              {
+                "name": "amountticket",
+                "type": "uint256"
+              }
+            ],
+            "name": "changeTicketprice",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
           },
-          cardBgTransform() {
-            const tX = this.mousePX * -40;
-            const tY = this.mousePY * -40;
-            return {
-              transform: `translateX(${tX}px) translateY(${tY}px)`
-            }
+          {
+            "constant": false,
+            "inputs": [
+              {
+                "name": "amountWeek",
+                "type": "uint256"
+              }
+            ],
+            "name": "changeWeeKprice",
+            "outputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "function"
           },
-          cardBgImage() {
-            return {
-              backgroundImage: `url(${this.dataImage})`
-            }
+          {
+            "anonymous": false,
+            "inputs": [
+              {
+                "indexed": false,
+                "name": "plan",
+                "type": "string"
+              },
+              {
+                "indexed": false,
+                "name": "from",
+                "type": "address"
+              },
+              {
+                "indexed": false,
+                "name": "amount",
+                "type": "uint256"
+              },
+              {
+                "indexed": false,
+                "name": "week",
+                "type": "uint256"
+              },
+              {
+                "indexed": false,
+                "name": "month",
+                "type": "uint256"
+              },
+              {
+                "indexed": false,
+                "name": "ticket",
+                "type": "uint256"
+              }
+            ],
+            "name": "Sent",
+            "type": "event"
+          },
+          {
+            "payable": true,
+            "stateMutability": "payable",
+            "type": "fallback"
+          },
+          {
+            "inputs": [],
+            "payable": false,
+            "stateMutability": "nonpayable",
+            "type": "constructor"
           }
-        },
-        methods: {
-          handleMouseMove(e) {
-            this.mouseX = e.pageX - this.$refs.card.offsetLeft - this.width/2;
-            this.mouseY = e.pageY - this.$refs.card.offsetTop - this.height/2;
-          },
-          handleMouseEnter() {
-            clearTimeout(this.mouseLeaveDelay);
-          },
-          handleMouseLeave() {
-            this.mouseLeaveDelay = setTimeout(()=>{
-              this.mouseX = 0;
-              this.mouseY = 0;
-            }, 1000);
-          }
+        ];
+        return web3.eth.contract(abi).at(address);
+      },
+      topup(ticket_price, nb_Ticket_Or_Type_Of_Offer) {
+        var miniToken = this.initContract();
+        const address = '0x48a9ca6e6cc7e5664ccc746213b3e3e6bf88e23d';
+        let price = 0;
+        if (typeof nb_Ticket_Or_Type_Of_Offer !== "string") {
+          price = ticket_price * nb_Ticket_Or_Type_Of_Offer;
         }
+        else {
+          price = ticket_price;
+        }
+
+
+        web3.eth.sendTransaction({
+          to: address,
+          from: web3.eth.accounts[0],
+          value: price,
+          gas: 1000000
+        }, (err, res) => {
+          if (err)
+            console.log(err);
+          else {
+            console.log(res);
+            this.loaderGIF = true;
+            this.ctr = false;
+
+
+            var miningTransaction = setInterval(() => {
+              txReceipt = web3.eth.getTransactionReceipt(res, (err, response) => {
+                if (err)
+                  console.log(err);
+                else {
+                  if (response !== null) {
+                    console.log(response);
+                    clearInterval(miningTransaction);
+                    this.loaderGIF = false;
+
+
+                    this.blockHash = response.blockHash;
+                    this.blockNumber = response.blockNumber;
+                    this.cumulativeGasUsed = response.cumulativeGasUsed;
+                    this.from = response.from;
+                    this.gasUsed = response.gasUsed;
+                    this.to = response.to;
+                    this.transactionHash = response.transactionHash;
+
+                    this.transaction_data = true;
+                    //todo : change token balance here
+
+                    if (typeof nb_Ticket_Or_Type_Of_Offer !== "string") {
+                      EventBus.$emit('addBalanceTicket', 10);
+
+                    }
+                    else if (nb_Ticket_Or_Type_Of_Offer === "week") {
+                      console.log('week')
+                      EventBus.$emit('addWeekToExpiration', 7);
+                    }
+                    else {
+                      console.log('month')
+                      EventBus.$emit('addMonthToExpiration', 30);
+                    }
+
+                  }
+                  else {
+                    console.log('transaction still being mined')
+                  }
+                }
+              });
+            }, 10000);
+          }
+        });
+
       }
-
-
-
+    },
+    mounted() {
+      if (typeof web3 !== 'undefined') {
+        web3 = new Web3(web3.currentProvider);
+      } else {
+        console.log('No web3? You should consider trying MetaMask!');
       }
-
     }
+  }
 </script>
-
-<style scoped>
-
-  body {
-    margin: 40px 0;
-    font-family: "Raleway";
-    font-size: 14px;
-    font-weight: 500;
-    background-color: #BCAAA4;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  .title {
-    font-family: "Raleway";
-    font-size: 24px;
-    font-weight: 700;
-    color: #5D4037;
-    text-align: center;
-  }
-
-  p {
-    line-height: 1.5em;
-  }
-
-  h1 + p, p + p {
-    margin-top: 10px;
-  }
-
-  .container {
-    padding: 40px 80px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-  }
-
-  .card-wrap {
-    margin: 10px;
-    -webkit-transform: perspective(800px);
-    transform: perspective(800px);
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d;
-    cursor: pointer;
-  }
-  .card-wrap:hover .card-info {
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-  .card-wrap:hover .card-info p {
-    opacity: 1;
-  }
-  .card-wrap:hover .card-info, .card-wrap:hover .card-info p {
-    -webkit-transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-    transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-  .card-wrap:hover .card-info:after {
-    -webkit-transition: 5s cubic-bezier(0.23, 1, 0.32, 1);
-    transition: 5s cubic-bezier(0.23, 1, 0.32, 1);
-    opacity: 1;
-    -webkit-transform: translateY(0);
-    transform: translateY(0);
-  }
-  .card-wrap:hover .card-bg {
-    -webkit-transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 5s cubic-bezier(0.23, 1, 0.32, 1);
-    transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 5s cubic-bezier(0.23, 1, 0.32, 1);
-    opacity: 0.8;
-  }
-  .card-wrap:hover .card {
-    -webkit-transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1), -webkit-box-shadow 2s cubic-bezier(0.23, 1, 0.32, 1);
-    transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1), -webkit-box-shadow 2s cubic-bezier(0.23, 1, 0.32, 1);
-    transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 2s cubic-bezier(0.23, 1, 0.32, 1);
-    transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 2s cubic-bezier(0.23, 1, 0.32, 1), -webkit-box-shadow 2s cubic-bezier(0.23, 1, 0.32, 1);
-    -webkit-box-shadow: rgba(255, 255, 255, 0.2) 0 0 40px 5px, white 0 0 0 1px, rgba(0, 0, 0, 0.66) 0 30px 60px 0, inset #333 0 0 0 5px, inset white 0 0 0 6px;
-    box-shadow: rgba(255, 255, 255, 0.2) 0 0 40px 5px, white 0 0 0 1px, rgba(0, 0, 0, 0.66) 0 30px 60px 0, inset #333 0 0 0 5px, inset white 0 0 0 6px;
-  }
-
-  .card {
-    position: relative;
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 240px;
-    flex: 0 0 240px;
-    width: 240px;
-    height: 320px;
-    background-color: #333;
-    overflow: hidden;
-    border-radius: 10px;
-    -webkit-box-shadow: rgba(0, 0, 0, 0.66) 0 30px 60px 0, inset #333 0 0 0 5px, inset rgba(255, 255, 255, 0.5) 0 0 0 6px;
-    box-shadow: rgba(0, 0, 0, 0.66) 0 30px 60px 0, inset #333 0 0 0 5px, inset rgba(255, 255, 255, 0.5) 0 0 0 6px;
-    -webkit-transition: 1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-    transition: 1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-  }
-
-  .card-bg {
-    opacity: 0.5;
-    position: absolute;
-    top: -20px;
-    left: -20px;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    -webkit-transition: 1s cubic-bezier(0.445, 0.05, 0.55, 0.95), opacity 5s 1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-    transition: 1s cubic-bezier(0.445, 0.05, 0.55, 0.95), opacity 5s 1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-    pointer-events: none;
-  }
-
-  .card-info {
-    padding: 20px;
-    position: absolute;
-    bottom: 0;
-    color: #fff;
-    -webkit-transform: translateY(40%);
-    transform: translateY(40%);
-    -webkit-transition: 0.6s 1.6s cubic-bezier(0.215, 0.61, 0.355, 1);
-    transition: 0.6s 1.6s cubic-bezier(0.215, 0.61, 0.355, 1);
-  }
-  .card-info p {
-    opacity: 0;
-    text-shadow: black 0 2px 3px;
-    -webkit-transition: 0.6s 1.6s cubic-bezier(0.215, 0.61, 0.355, 1);
-    transition: 0.6s 1.6s cubic-bezier(0.215, 0.61, 0.355, 1);
-  }
-  .card-info * {
-    position: relative;
-    z-index: 1;
-  }
-  .card-info:after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-    width: 100%;
-    height: 100%;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(transparent), to(rgba(0, 0, 0, 0.6)));
-    background-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.6) 100%);
-    background-blend-mode: overlay;
-    opacity: 0;
-    -webkit-transform: translateY(100%);
-    transform: translateY(100%);
-    -webkit-transition: 5s 1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-    transition: 5s 1s cubic-bezier(0.445, 0.05, 0.55, 0.95);
-  }
-
-  .card-info h1 {
-    font-family: "Playfair Display";
-    font-size: 36px;
-    font-weight: 700;
-    text-shadow: rgba(0, 0, 0, 0.5) 0 10px 10px;
-  }
-
-</style>

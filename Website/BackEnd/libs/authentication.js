@@ -8,7 +8,8 @@ function setUserInfo(request){
         _id: request._id,
         username: request.username,
         role: request.role,
-        apiKeyEXP:request.apiExpirationDate
+        apiKeyEXP:request.apiExpirationDate,
+        token_balance:request.token_balance
     };
 }
 var UUID=function generateUUID() {
