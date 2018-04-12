@@ -110,7 +110,7 @@
           },
           method: 'POST',
           rememberMe: true,
-          redirect: this.REDIRECT_URL,
+          redirect: '/map',
           fetchUser: true,
           headers: {
             'Content-type': 'application/x-www-form-urlencoded'
@@ -139,7 +139,7 @@
                 console.log(this.$auth.user().role);
                 self.$auth.token('default-auth-token', res.data.token);
                 localStorage.setItem('default-auth-token', res.data.token);
-                localStorage.setItem('user', res.data.userInfo);
+                localStorage.setItem('user', JSON.stringify(CurrentUser));
                 self.$auth.check('true');
                 self.$router.push('/map');
 
