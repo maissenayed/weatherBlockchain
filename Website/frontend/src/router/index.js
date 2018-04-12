@@ -98,12 +98,12 @@ export default new Router({
     },
     {
       path: '/map', component: WorldMap, name: 'map', meta: {
-        auth: {roles:'client', redirect: '/session/login'}
+        auth: {roles:['client','admin'], redirect: '/session/login'}
       }
     },
     {
       path: '/map/:country', component: CountrydMap, props: true, meta: {
-        auth: {roles: 'client', redirect: '/session/login'}
+        auth: {roles: ['client','admin'], redirect: '/session/login'}
       }
     }
 
