@@ -93,17 +93,17 @@ export default new Router({
     },
     {
       path: '/pricing', component: Pricing, meta: {
-        auth: {roles: 'admin', redirect: 'session/login'}
+        auth: {roles: 'client', redirect: '/session/login'}
       }
     },
     {
       path: '/map', component: WorldMap, meta: {
-        auth: {roles: 'admin', redirect: 'session/login'}
+        auth: {roles: 'client', redirect: '/session/login'}
       }
     },
     {
       path: '/map/:country', component: CountrydMap, props: true, meta: {
-        auth: {roles: 'admin', redirect: 'session/login'}
+        auth: {roles: 'client', redirect: '/session/login'}
       }
     }
 
