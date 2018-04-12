@@ -139,6 +139,12 @@
                 console.log(this.$auth.user().role);
                 self.$auth.token('default-auth-token', res.data.token);
                 localStorage.setItem('default-auth-token', res.data.token);
+                var CurrentUser = new Object({});
+                CurrentUser.role = res.data.userInfo.role;
+                CurrentUser.apiKeyEXP = res.data.userInfo.apiKeyEXP;
+                CurrentUser.username = res.data.userInfo.username;
+                CurrentUser.id = res.data.userInfo._id;
+                CurrentUser.token_balance = res.data.userInfo.token_balance;
                 localStorage.setItem('user', JSON.stringify(CurrentUser));
                 self.$auth.check('true');
                 self.$router.push('/map');
