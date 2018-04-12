@@ -58,7 +58,7 @@
   export default {
     data() {
       return {
-        REDIRECT_URL: '/pricing',
+        REDIRECT_URL: '/map',
         name: "",
         password: "",
         error: false,
@@ -88,7 +88,7 @@
             name: this.name,
             password: this.password,
           }),
-          success: function (res) {
+          success: (res) => {
             console.log(res.data.token);
             console.log(res.data);
             this.$auth.user(res.data.userInfo);
@@ -104,19 +104,9 @@
             CurrentUser.username = res.data.userInfo.username;
             CurrentUser.id = res.data.userInfo._id;
             CurrentUser.token_balance = res.data.userInfo.token_balance;
-
             localStorage.setItem('user', JSON.stringify(CurrentUser));
-            let usrJWTToken = JSON.parse(localStorage.getItem('user'));
-            console.log(usrJWTToken.token_balance !== 0)
-            /*if(usrJWTToken.token_balance !== 0 || usrJWTToken.apiKeyEXP !== new Date()){
-              var redirect = this.$auth.redirect();
-
-              this.$auth.login({
-                redirect: "/map"
-              });
-            }*/
           },
-          error: function () {
+          error: () => {
           },
           method: 'POST',
           rememberMe: true,

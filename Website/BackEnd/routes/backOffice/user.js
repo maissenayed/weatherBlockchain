@@ -94,6 +94,21 @@ router.put('/:id/:TBorAED?', function (req, res) {
                 }
             });
     }
+    else if (req.params.TBorAED ==="AEDANDTB"){
+        User.findOneAndUpdate({_id: req.params.id},
+            {
+                $set: {
+                    apiExpirationDate: req.body.apiExpirationDate,
+                    token_balance: req.body.token_balance
+                }
+            }, function (err, updatedUser) {
+                if (err)
+                    res.json(err);
+                else {
+                    res.json(updatedUser);
+                }
+            });
+    }
     else{
         User.findOneAndUpdate({_id: req.params.id},
             {

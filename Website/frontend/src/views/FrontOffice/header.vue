@@ -7,9 +7,12 @@
       <v-btn flat large color="primary" v-if="!$auth.check()" to="/" active-class> Home</v-btn>
       <v-btn flat large color="primary" v-if="!$auth.check()" to="/session/login">Login</v-btn>
       <v-btn flat large color="primary" v-if="!$auth.check()" to="/session/sign-up">Register</v-btn>
+      <div class="text-xs-center" style="margin-top: 20px" v-if="$auth.check()">
+        <v-btn outline color="blue" dark @click.prevent="addToExpirationDate" :disabled="token_balance==0">+</v-btn>
+      </div>
       <v-chip label outline color="blue" v-if="$auth.check()">API expiration date : {{apiExpirationDate| formatDate}}</v-chip>
       <v-chip label outline color="blue" v-if="$auth.check()">Token balance : {{token_balance}} </v-chip>
-      <v-btn flat large color="primary" v-if="$auth.check()" class="pull-right" @click.prevent="goToPricing">Pricing</v-btn>
+      <!--<v-btn flat large color="primary" v-if="$auth.check()" class="pull-right" @click.prevent="goToPricing">Pricing</v-btn>-->
       <v-btn flat large color="primary" v-if="$auth.check()" class="pull-right" @click.prevent="logout">Logout</v-btn>
     </v-toolbar-items>
   </v-toolbar>
@@ -89,6 +92,21 @@
       })
     },
     methods: {
+      addToExpirationDate(){
+        this.apiExpirationDate = new Date(this.apiExpirationDate);
+        this.apiExpirationDate.setDate(this.apiExpirationDate.getDate() + 1);
+        this.token_balance-=1;
+        var userFromForm = {
+          apiExpirationDate: this.apiExpirationDate,
+          token_balance: this.token_balance
+        };
+        axios.put(this.USER_URL + '/' + this.loggedUser.id+'/AEDANDTB', userFromForm)
+          .then((response) => {
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+      },
       logout() {
         this.$auth.logout({
           makeRequest: false,

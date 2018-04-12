@@ -45,6 +45,18 @@ import Footer from './footer';
 		},
     beforeMount: function () {
       this.getMap();
+    },
+    created(){
+
+      let usrJWTToken = JSON.parse(localStorage.getItem('user'));
+
+      var dateComparison = Date.parse(usrJWTToken.apiKeyEXP) <= Date.parse(new Date());
+      if (usrJWTToken.token_balance === 0 && dateComparison === true) {
+        this.$router.push('/pricing');
+      }
+      if (usrJWTToken.role === "admin"){
+        this.$router.push('/admin/userlist')
+      }
     }
 
 
