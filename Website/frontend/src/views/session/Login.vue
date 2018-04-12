@@ -105,6 +105,7 @@
             CurrentUser.id = res.data.userInfo._id;
             CurrentUser.token_balance = res.data.userInfo.token_balance;
             localStorage.setItem('user', JSON.stringify(CurrentUser));
+            this.$router.push('/map');
           },
           error: () => {
           },
@@ -123,7 +124,7 @@
         web3.personal.sign(web3.toHex("270bytes weather"), account, (err, res) => {
           if (err == null) {
 
-            axios.post('/auth/sign', qs.stringify({
+           /* axios.post('/auth/sign', qs.stringify({
               address: account,
               signature: res
 
@@ -133,12 +134,15 @@
               }
             })
               .then((res) => {
+                console.log(res.data.token);
                 console.log(res.data);
-                console.log(res.data.userInfo);
                 self.$auth.user(res.data.userInfo);
                 console.log(this.$auth.user().role);
+                localStorage.clear();
                 self.$auth.token('default-auth-token', res.data.token);
                 localStorage.setItem('default-auth-token', res.data.token);
+                self.$auth.check('true');
+                console.log(res.data.userInfo);
                 var CurrentUser = new Object({});
                 CurrentUser.role = res.data.userInfo.role;
                 CurrentUser.apiKeyEXP = res.data.userInfo.apiKeyEXP;
@@ -146,14 +150,57 @@
                 CurrentUser.id = res.data.userInfo._id;
                 CurrentUser.token_balance = res.data.userInfo.token_balance;
                 localStorage.setItem('user', JSON.stringify(CurrentUser));
-                self.$auth.check('true');
-                self.$router.push('/map');
+                setTimeout(()=>{
+                  console.log("hhhhh")
+                  this.$router.push({name:'map'})
+                },1000);
+
 
               })
               .catch(function (error) {
-                // router.push('/session/sign-up');
+
                 console.log(error);
-              });
+              });*/
+
+
+
+            this.$auth.login({
+              data: qs.stringify({
+                address: account,
+                signature: res
+              }),
+              url:'auth/sign',
+              success: (res) => {
+                console.log(res.data.token);
+                console.log(res.data);
+                this.$auth.user(res.data.userInfo);
+                console.log(this.$auth.user().role);
+                localStorage.clear();
+                this.$auth.token('default-auth-token', res.data.token);
+                localStorage.setItem('default-auth-token', res.data.token);
+                this.$auth.check('true');
+                console.log(res.data.userInfo);
+                var CurrentUser = new Object({});
+                CurrentUser.role = res.data.userInfo.role;
+                CurrentUser.apiKeyEXP = res.data.userInfo.apiKeyEXP;
+                CurrentUser.username = res.data.userInfo.username;
+                CurrentUser.id = res.data.userInfo._id;
+                CurrentUser.token_balance = res.data.userInfo.token_balance;
+                localStorage.setItem('user', JSON.stringify(CurrentUser));
+                this.$router.push('/map');
+              },
+              error: () => {
+              },
+              method: 'POST',
+              rememberMe: true,
+              redirect: '/map',
+              fetchUser: true,
+              headers: {
+                'Content-type': 'application/x-www-form-urlencoded'
+              }
+            });
+
+
 
           }
         });

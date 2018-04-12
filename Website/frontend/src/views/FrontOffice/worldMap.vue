@@ -55,7 +55,10 @@ import Footer from './footer';
         this.$router.push('/pricing');
       }
       if (usrJWTToken.role === "admin"){
+        console.log("dude ad")
         this.$router.push('/admin/userlist')
+      }else {
+        console.log('map');
       }
     }
 

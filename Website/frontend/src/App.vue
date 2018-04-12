@@ -37,7 +37,7 @@ export default {
       rtlLayout: false
     }
   }, beforeMount: function () {
-
+    localStorage.clear();
 
   },
   mounted () {

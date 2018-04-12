@@ -97,8 +97,8 @@ export default new Router({
       }
     },
     {
-      path: '/map', component: WorldMap, meta: {
-        auth: {roles:[ 'client','admin'], redirect: '/session/login'}
+      path: '/map', component: WorldMap, name: 'map', meta: {
+        auth: {roles:'client', redirect: '/session/login'}
       }
     },
     {
