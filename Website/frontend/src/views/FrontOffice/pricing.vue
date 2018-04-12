@@ -274,18 +274,18 @@
 
                     if (typeof nb_Ticket_Or_Type_Of_Offer !== "string") {
                       EventBus.$emit('addBalanceTicket', 10);
-                      this.$router.push('/map');
+                      this.$router.go('/map');
 
                     }
                     else if (nb_Ticket_Or_Type_Of_Offer === "week") {
                       console.log('week')
                       EventBus.$emit('addWeekToExpiration', 7);
-                      this.$router.push('/map');
+                      this.$router.go('/map');
                     }
                     else {
                       console.log('month');
                       EventBus.$emit('addMonthToExpiration', 30);
-                      this.$router.push('/map');
+                      this.$router.go('/map');
                     }
 
                   }

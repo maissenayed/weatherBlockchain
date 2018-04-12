@@ -140,7 +140,7 @@
             app.errors = resp.response.data.errors;
           },
 
-          redirect: '/admin/userlist',
+          redirect: '/map',
           headers: {
             'Content-type': 'application/x-www-form-urlencoded'
           }

@@ -37,7 +37,7 @@
                 </v-flex>
               </v-layout>
 
-              <v-btn block large color="warning">Create Account</v-btn>
+              <v-btn block large color="warning" to="/session/sign-up" >Create Account</v-btn>
 
             </form>
             <p class="text-xs-center mb-0 log-link">
