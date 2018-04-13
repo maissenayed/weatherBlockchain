@@ -12,7 +12,7 @@
       </div>
       <v-chip label outline color="blue" v-if="$auth.check()">API expiration date : {{apiExpirationDate| formatDate}}</v-chip>
       <v-chip label outline color="blue" v-if="$auth.check()">Token balance : {{token_balance}} </v-chip>
-      <!--<v-btn flat large color="primary" v-if="$auth.check()" class="pull-right" @click.prevent="goToPricing">Pricing</v-btn>-->
+      <v-btn flat large color="primary" v-if="$auth.check()" class="pull-right" @click.prevent="goToPricing">Pricing</v-btn>
       <v-btn flat large color="primary" v-if="$auth.check()" class="pull-right" @click.prevent="logout">Logout</v-btn>
     </v-toolbar-items>
   </v-toolbar>
