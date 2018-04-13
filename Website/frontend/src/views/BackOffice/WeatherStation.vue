@@ -17,13 +17,13 @@
                     </v-card-title>
                     <v-card-text>
                       <v-container grid-list-md>
-                        <v-layout wrap>
-                          <v-flex xs12 sm6 md4>
+                        <v-layout wrap row justify-sapce-around>
+                          <v-flex xs6 sm6 md4>
                             <v-text-field label="IP address" v-model="editedItem.ip_adr"></v-text-field>
                           </v-flex>
-                          <v-flex xs12 sm6 md4>
-                          </v-flex>
-                          <v-flex xs12 sm6 md4>
+                        </v-layout>
+                        <v-layout wrap row justify-sapce-around>
+                          <v-flex xs6 sm6 md4>
                             <v-select
                               :items="countries_list"
                               v-model="editedItem.country"
@@ -36,7 +36,7 @@
                             >
                             </v-select>
                           </v-flex>
-                          <v-flex xs12 sm6 md4>
+                          <v-flex xs6 sm6 md4>
                             <v-select
                               :items="states_list"
                               v-model="editedItem.state[0].name"
@@ -49,11 +49,13 @@
                             >
                             </v-select>
                           </v-flex>
-                          <v-flex xs12 sm6 md4>
+                        </v-layout>
+                        <v-layout wrap row justify-sapce-around>
+                          <v-flex xs6 sm6 md4>
                             <v-text-field label="Longitude"
                                           v-model="editedItem.coord[0].lng" disabled></v-text-field>
                           </v-flex>
-                          <v-flex xs12 sm6 md4>
+                          <v-flex xs6 sm6 md4>
                             <v-text-field label="Latitude" v-model="editedItem.coord[0].lat"
                                           disabled></v-text-field>
                           </v-flex>

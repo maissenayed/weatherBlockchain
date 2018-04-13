@@ -8,7 +8,7 @@
       <v-btn flat large color="primary" v-if="!$auth.check()" to="/session/login">Login</v-btn>
       <v-btn flat large color="primary" v-if="!$auth.check()" to="/session/sign-up">Register</v-btn>
       <div class="text-xs-center" style="margin-top: 20px" v-if="$auth.check()">
-        <v-btn outline color="blue" dark @click.prevent="addToExpirationDate" :disabled="token_balance==0">+</v-btn>
+        <v-btn outline color="blue" dark @click.prevent="addToExpirationDate" :disabled="token_balance==0">Spend token balance</v-btn>
       </div>
       <v-chip label outline color="blue" v-if="$auth.check()">API expiration date : {{apiExpirationDate| formatDate}}</v-chip>
       <v-chip label outline color="blue" v-if="$auth.check()">Token balance : {{token_balance}} </v-chip>

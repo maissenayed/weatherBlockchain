@@ -21,13 +21,13 @@
 
                   <v-card-text>
                     <v-container grid-list-md>
-                      <v-layout wrap>
-                        <v-flex xs12 sm6 md4>
+                      <v-layout wrap row justify-space-around>
+                        <v-flex xs6 sm6 md4>
                           <v-text-field label="Wallet address"
                                         v-model="editedItem.wallet_adr"></v-text-field>
                         </v-flex>
 
-                        <v-flex xs12 sm6 md4>
+                        <v-flex xs6 sm6 md4>
                           <v-select
                             :items="ROLES_LIST"
                             v-model="editedItem.role"
@@ -37,10 +37,12 @@
                             color="grey"
                           ></v-select>
                         </v-flex>
-                        <v-flex xs12 sm6 md4>
+                      </v-layout>
+                      <v-layout wrap row justify-space-around>
+                        <v-flex xs6 sm6 md4>
                           <v-text-field label="API key" v-model="editedItem.apiKey"></v-text-field>
                         </v-flex>
-                        <v-flex xs12 sm6 md4>
+                        <v-flex xs6 sm6 md4>
                           <!--<v-text-field label="API expiration date"
                                         v-model="editedItem.apiExpirationDate"></v-text-field>-->
                           <v-menu
@@ -71,7 +73,9 @@
                             </v-date-picker>
                           </v-menu>
                         </v-flex>
-                        <v-flex xs12 sm6 md4>
+                      </v-layout>
+                      <v-layout wrap row justify-space-around>
+                        <v-flex xs6 sm6 md4>
                           <v-text-field
                             v-model="editedItem.password"
                             name="input-10-1"
@@ -84,7 +88,7 @@
 
                           ></v-text-field>
                         </v-flex>
-                        <v-flex xs12 sm6 md4>
+                        <v-flex xs6 sm6 md4>
                           <v-text-field label="Token balance"
                                         v-model="editedItem.token_balance"></v-text-field>
                         </v-flex>
@@ -293,7 +297,17 @@
 
           axios.put(this.USER_URL + '/' + this.editedItem._id, userFromForm)
             .then((response) => {
-              this.items.splice(this.editedIndex, 1, response.data);
+              var self = this;
+              // vuetify data table
+
+              //TODO : put api routes in a seperate file
+              axios.get(self.USER_URL)
+                .then(function (response) {
+                  self.users = response.data;
+                  self.initialize();
+                })
+                .catch((error) => {
+                });
             })
             .catch(function (error) {
               console.log(error);

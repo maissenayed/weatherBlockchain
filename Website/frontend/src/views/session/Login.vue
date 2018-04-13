@@ -33,6 +33,7 @@
                     src="/static/img/loginwithmetamask.png"
                     height="60px"
                     contain
+                    style="cursor: pointer"
                   ></v-card-media>
                 </v-flex>
               </v-layout>
