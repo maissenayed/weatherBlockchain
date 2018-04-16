@@ -1,5 +1,6 @@
 var weatherData=require('./../../models/weatherDataSchema');
 var State=require('./../../models/stateSchema');
+var weatherStation=require('./../../models/weatherStationSchema');
 var express = require('express');
 var router = express.Router();
 //full world map temp,humidity ,pressure
@@ -156,13 +157,48 @@ router.get('/fullMap/:country/:state', function(req, res, next) {
 });
 //post weather data by raspberrypies (weather station)
 router.post('/',function (req,res) {
-    console.log( req.body);
-    var newWeatherData=new weatherData(req.body);
-    newWeatherData.save(function (err,newWeatherData) {
-        if(err)
-            res.send(err);
-        else
-            res.send(newWeatherData);
-    });
+    //console.log( req.body);
+    var ipAddress = getClientIp(req)+'';
+
+    weatherStation.find({'ip_adr': ipAddress }).exec((err,weatherstation) => {
+        if (err){return console.log(err)}
+        else {
+            if(weatherstation.length>0){
+                var newWeatherData=new weatherData(req.body);
+                newWeatherData.save(function (err,newWeatherData) {
+                    if(err)
+                        res.send(err);
+                    else
+                        res.send(newWeatherData);
+                });
+            }
+            else {
+                res.json({'error':'UnKnown Station'})
+            }
+
+        }
+
+    });;
+
 });
+
+
+
+function getClientIp(req) {
+    var ipAddress;
+    // The request may be forwarded from local web server.
+    var forwardedIpsStr = req.header('x-forwarded-for');
+    if (forwardedIpsStr) {
+        // 'x-forwarded-for' header may return multiple IP addresses in
+        // the format: "client IP, proxy 1 IP, proxy 2 IP" so take the
+        // the first one
+        var forwardedIps = forwardedIpsStr.split(',');
+        ipAddress = forwardedIps[0];
+    }
+    if (!ipAddress) {
+        // If request was not forwarded
+        ipAddress = req.connection.remoteAddress;
+    }
+    return ipAddress;
+};
 module.exports = router;

@@ -44,7 +44,7 @@ myEvent.watch((error, result) => {
 function SaveTransaction(alldata) {
 
     var options = {
-        uri: 'http://express.270bytes.com:3030/transaction',
+        uri: 'http://localhost:3030/transaction',
         method: 'POST',
         json: alldata
     };
