@@ -10,6 +10,7 @@ router.get('/:plan',  (req, res, next)=> {
 
         getPriceDB( plans ,(data)=>{
             res.setHeader('Content-Type', 'application/json');
+            //res.send(data);
             res.send('{ "'+ req.params.plan +'" : '+((1/ price) * data[0].value) +" }");
         });
     });
@@ -46,6 +47,7 @@ router.post('/:plan',  (req, res, next)=> {
 });
 
 function getPriceDB(plans,callback) {
+
     configuration.find({name:plans}, (err,conf) => {
         if(err) {
             //res.send(err);
@@ -54,11 +56,13 @@ function getPriceDB(plans,callback) {
         }
         if(!conf) {
             //res.status(404).send();
+            console.log("!conf");
             callback(0);
 
         }
         else {
             // res.json(conf);
+            console.log(conf)
             callback(conf);
             //console.log(conf);
         }

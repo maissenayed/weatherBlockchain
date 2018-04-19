@@ -4,6 +4,8 @@ import Router from 'vue-router'
 import Full from '@/container/Full'
 // Pages views
 import Blank from '@/views/pages/Blank'
+//Pricing
+import PricingBackoffice from '@/views/BackOffice/Price'
 //home
 import home from '@/views/FrontOffice/home'
 // session components
@@ -40,6 +42,14 @@ export default new Router({
           meta: {
             title: 'Users',
             breadcrumb: 'admin / User List',
+
+          }
+        }, {
+          path: '/admin/pricing',
+          component: PricingBackoffice,
+          meta: {
+            title: 'Pricing',
+            breadcrumb: 'admin / Pricing',
 
           }
         },
