@@ -69,6 +69,7 @@ let coutryHelper=function(cityPayload,data,mychart,add,remove){
     },
     mapNavigation: {
       enabled: true,
+      enableMouseWheelZoom: false,
       buttonOptions: {
         verticalAlign: 'bottom'
       }

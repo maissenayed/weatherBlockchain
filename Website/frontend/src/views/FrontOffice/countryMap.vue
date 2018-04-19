@@ -137,6 +137,7 @@ import Footer from './footer';
 <style scoped>
 	.mr{
 		margin-bottom: 50px;
+    margin-top:100px;
 	}
 	.controle{
 		width:40%;
