@@ -27,7 +27,7 @@
 
     data() {
       return {
-        title: 'Your Logo',
+        title: '',
         apiExpirationDate: new Date(),
         token_balance: 0,
         USER_URL: 'http://localhost:3030/users',

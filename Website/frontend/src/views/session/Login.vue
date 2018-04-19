@@ -3,9 +3,9 @@
     <v-container px-0>
       <v-layout row wrap>
         <v-flex xs12 sm10 md6 lg5 mx-auto>
-          <div class="mb-70">
-            <router-link to="/" class="d-block text-xs-center"><img src="/static/img/session-logo.png"/></router-link>
-          </div>
+          <!--<div class="mb-70">-->
+            <!--<router-link to="/" class="d-block text-xs-center"><img src="/static/img/session-logo.png"/></router-link>-->
+          <!--</div>-->
           <div class="session-block">
             <div class="session-head text-xs-center">
               <div class="div-icon mb-3">
@@ -14,9 +14,16 @@
               <h3 class="mb-4">Login </h3>
               <p class="fs-14 px-5">Enter username and password to access your account .</p>
             </div>
-            <div class="alert alert-danger" v-if="error">
-              <p>There was an error, unable to sign in with those credentials.</p>
-            </div>
+            <v-alert type="error" :value="error">
+              There was an error, unable to sign in with those credentials.
+            </v-alert>
+
+            <v-alert type="error" :value="unlock_error">
+              {{unlock_msg}}
+            </v-alert>
+            <v-alert type="error" :value="display_error">
+              {{error_msg}}
+            </v-alert>
             <form autocomplete="off" @submit.prevent="login" method="post" class="mb-4">
               <v-text-field label="UserName" v-model="name" required></v-text-field>
               <v-text-field label="Password" v-model="password" type="password" required></v-text-field>
@@ -72,15 +79,7 @@
       }
     },
     mounted() {
-      if (typeof web3 !== 'undefined') {
-        // Use Mist/MetaMask's provider
-        this.display_error = false;
-        web3 = new Web3(web3.currentProvider);
 
-      } else {
-        this.error_msg = 'No web3? You should consider trying MetaMask!';
-        this.display_error = true;
-      }
     },
     methods: {
       login() {
@@ -207,7 +206,15 @@
         });
       },
       startApp() {
+        if (typeof web3 !== 'undefined') {
+          // Use Mist/MetaMask's provider
+          this.display_error = false;
+          web3 = new Web3(web3.currentProvider);
 
+        } else {
+          this.error_msg = 'No web3? You should consider trying MetaMask!';
+          this.display_error = true;
+        }
         web3.version.getNetwork((err, netId) => {
           switch (netId) {
             case "1":
