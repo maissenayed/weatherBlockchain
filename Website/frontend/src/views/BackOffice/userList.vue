@@ -316,6 +316,7 @@
           axios.post(this.USER_URL, userFromForm)
             .then((response) => {
               this.items.push(userFromForm);
+
             })
             .catch(function (error) {
               console.log(error);
