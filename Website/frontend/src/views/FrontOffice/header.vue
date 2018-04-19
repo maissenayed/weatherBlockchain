@@ -12,7 +12,7 @@
       </div>
       <v-chip label outline color="blue" v-if="$auth.check()">API expiration date : {{apiExpirationDate| formatDate}}</v-chip>
       <v-chip label outline color="blue" v-if="$auth.check()">Token balance : {{token_balance}} </v-chip>
-          <router-link to="/map" tag="v-chip" class="chip chip--label chip--outline blue blue--text">World Map</router-link>
+          <router-link to="/map" v-if="$auth.check()" tag="v-chip" class="chip chip--label chip--outline blue blue--text">World Map</router-link>
 
       <v-btn flat large color="primary" v-if="$auth.check()" class="pull-right" @click.prevent="goToPricing">Pricing</v-btn>
       <v-btn flat large color="primary" v-if="$auth.check()" class="pull-right" @click.prevent="logout">Logout</v-btn>
