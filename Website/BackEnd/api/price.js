@@ -65,15 +65,15 @@ router.get('/:plan',  (req, res, next)=> {
 
 
 router.get('/',  (req, res, next)=> {
-
+         
     getPriceNow((price)=>{
 
         getPriceDB( "ticket_price" ,(data)=>{
             let notif = {
                 notification : false
             };
-
-            if(price - (10/data[0].value ) > 2){
+            console.log(data);
+            if(price - (10/data[0].value ) > 10){
                 console.log(price  + "   "+( 10 /data[0].value));
                 notif.notification = true ;
             }
