@@ -3,6 +3,52 @@ var router = express.Router();
 var request = require('request');
 var configuration=require('./../models/configurationSchema');
 
+
+router.get('/usd',  (req, res, next)=> {
+
+    configuration.find({name:new RegExp('price_usd','i')}, (err,conf) => {
+        if(err) {
+            //res.send(err);
+            console.log('err');
+            res.json(err);
+        }
+        if(!conf) {
+            //res.status(404).send();
+            console.log("!conf");
+            res.send("");
+
+        }
+        else {
+            // res.json(conf);
+            console.log(conf)
+            res.json(conf);
+            //console.log(conf);
+        }
+    });
+});
+router.get('/eth',  (req, res, next)=> {
+
+    configuration.find({name:{$regex: '_price'},value:{$lt:1} }, (err,conf) => {
+        if(err) {
+            //res.send(err);
+            console.log('err');
+            res.json(err);
+        }
+        if(!conf) {
+            //res.status(404).send();
+            console.log("!conf");
+            res.send("");
+
+        }
+        else {
+            // res.json(conf);
+            console.log(conf)
+            res.json(conf);
+            //console.log(conf);
+        }
+    });
+});
+
 /* GET home page. */
 router.get('/:plan',  (req, res, next)=> {
     let plans = req.params.plan +"_usd";
@@ -16,6 +62,7 @@ router.get('/:plan',  (req, res, next)=> {
     });
 
 });
+
 
 router.get('/',  (req, res, next)=> {
 

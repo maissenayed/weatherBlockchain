@@ -17,6 +17,12 @@ export const category1 = [
     title: 'transactions',
     items: null,
     path: '/admin/transactions'
+  },
+  {
+    action: 'ti-money',
+    title: 'pricing',
+    items: null,
+    path: '/admin/pricing'
   }
   // {
   //   action: 'ti-dashboard',

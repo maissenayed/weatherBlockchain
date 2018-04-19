@@ -95,7 +95,7 @@
   import {default as Web3} from 'web3';
   import {EventBus} from '../../lib/eventBus';
   import Header from './header';
-
+  import {abi,address} from './../../utils/configContract';
   export default {
     name: 'Pricing',
     props: {},
@@ -120,113 +120,12 @@
     },
     methods: {
       initContract() {
-        const address = '0x48a9ca6e6cc7e5664ccc746213b3e3e6bf88e23d';
-        const abi = [
-          {
-            "constant": false,
-            "inputs": [],
-            "name": "cashout",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-          },
-          {
-            "constant": false,
-            "inputs": [
-              {
-                "name": "amountMonth",
-                "type": "uint256"
-              }
-            ],
-            "name": "changeMonthprice",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-          },
-          {
-            "constant": false,
-            "inputs": [
-              {
-                "name": "amountticket",
-                "type": "uint256"
-              }
-            ],
-            "name": "changeTicketprice",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-          },
-          {
-            "constant": false,
-            "inputs": [
-              {
-                "name": "amountWeek",
-                "type": "uint256"
-              }
-            ],
-            "name": "changeWeeKprice",
-            "outputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "function"
-          },
-          {
-            "anonymous": false,
-            "inputs": [
-              {
-                "indexed": false,
-                "name": "plan",
-                "type": "string"
-              },
-              {
-                "indexed": false,
-                "name": "from",
-                "type": "address"
-              },
-              {
-                "indexed": false,
-                "name": "amount",
-                "type": "uint256"
-              },
-              {
-                "indexed": false,
-                "name": "week",
-                "type": "uint256"
-              },
-              {
-                "indexed": false,
-                "name": "month",
-                "type": "uint256"
-              },
-              {
-                "indexed": false,
-                "name": "ticket",
-                "type": "uint256"
-              }
-            ],
-            "name": "Sent",
-            "type": "event"
-          },
-          {
-            "payable": true,
-            "stateMutability": "payable",
-            "type": "fallback"
-          },
-          {
-            "inputs": [],
-            "payable": false,
-            "stateMutability": "nonpayable",
-            "type": "constructor"
-          }
-        ];
+
         return web3.eth.contract(abi).at(address);
       },
       topup(ticket_price, nb_Ticket_Or_Type_Of_Offer) {
         var miniToken = this.initContract();
-        const address = '0x48a9ca6e6cc7e5664ccc746213b3e3e6bf88e23d';
+        //const address = '0x48a9ca6e6cc7e5664ccc746213b3e3e6bf88e23d';
         let price = 0;
         if (typeof nb_Ticket_Or_Type_Of_Offer !== "string") {
           price = ticket_price * nb_Ticket_Or_Type_Of_Offer;
