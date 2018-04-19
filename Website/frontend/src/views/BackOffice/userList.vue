@@ -323,6 +323,25 @@
         }
         this.close()
       }
+    },
+    mounted () {
+      let self = this;
+    axios.get('/api/price').then(function (response) {
+        if(response.data.notification){
+          setTimeout(()=>{
+            self.showPriceChangeMessage();
+          },2500);
+
+        }
+    })
+    },
+    notifications: {
+      showPriceChangeMessage: { // You can have any name you want instead of 'showLoginError'
+        title: 'Welcome Admin',
+        message: 'The ETH price has changed ',
+        type: 'warn', // You also can use 'VueNotifications.types.error' instead of 'error'
+        timeout: 3000
+      }
     }
   }
 </script>
