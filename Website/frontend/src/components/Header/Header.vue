@@ -16,7 +16,9 @@
     <v-toolbar class="navbar-default" app fixed :clipped-left="!ifRtlLayout" :clipped-right="ifRtlLayout">
       <!-- App Logo -->
       <div class="site-logo">
-        <router-link to="/"><img src="/static/img/site-logo.png" alt="site logo" width="98" height="30"></router-link>
+        <!--<router-link to="/"><img src="/static/img/site-logo.png" alt="site logo" width="98" height="30"></router-link>-->
+        <img src="../../assets/vuetify.png" alt="Vuetify.js" style="vertical-align:middle;transform:rotate(180deg);" width="30" height="30"/>
+        <span style="color:white  "><b>Nammumu</b></span>
       </div>
       <v-toolbar-title>
         <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -28,44 +30,49 @@
         <v-btn icon @click="toggleFullScreen" class="d-inline-50">
           <i class="ti-fullscreen"></i>
         </v-btn>
-        <v-btn icon @click.stop="chatSidebar = !chatSidebar" class="d-inline-50">
-          <i class="ti-comments"></i>
+        <v-btn icon @click.prevent="logout" class="d-inline-50">
+          <i class="ti-power-off"></i>
         </v-btn>
-        <v-menu offset-y class="d-inline-50">
-          <v-btn icon slot="activator">
-            <i class="ti-bell"></i>
-          </v-btn>
-          <v-list>
-            <v-list-tile v-for="item in items" :key="item.title" @click="">
-              <v-icon class="">{{item.icon}}</v-icon>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-menu>
-        <v-menu offset-y>
-          <div slot="activator" class="drop-menu">
-            <img width="30px" height="30px" src="/static/img/user-7.jpg" class="rounded-circle">
-            <span>Gregory A.</span>
-          </div>
-          <v-list>
-            <v-list-tile to="/users/user-profile">
-              <v-icon class="mr-3 font-lg text-gray">ti-user</v-icon>
-              <v-list-tile-title>View Profile</v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile to="/inbox">
-              <v-icon class="mr-3 font-lg text-gray">ti-email</v-icon>
-              <v-list-tile-title>Inbox</v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile to="/users/users-list">
-              <v-icon class="mr-3 font-lg text-gray">ti-bell</v-icon>
-              <v-list-tile-title>Users List</v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile to="/session/login">
-              <v-icon class="mr-3 font-lg text-gray">ti-power-off</v-icon>
-              <v-list-tile-title @click.prevent="logout">Log Out</v-list-tile-title>
-            </v-list-tile>
-          </v-list>
-        </v-menu>
+
+        <!--<v-btn icon @click.stop="chatSidebar = !chatSidebar" class="d-inline-50">-->
+        <!--<i class="ti-comments"></i>-->
+        <!--</v-btn>-->
+        <!--<v-menu offset-y class="d-inline-50">-->
+        <!--<v-btn icon slot="activator">-->
+        <!--<i class="ti-bell"></i>-->
+        <!--</v-btn>-->
+        <!--<v-list>-->
+        <!--<v-list-tile v-for="item in items" :key="item.title" @click="">-->
+        <!--<v-icon class="">{{item.icon}}</v-icon>-->
+        <!--<v-list-tile-title>{{ item.title }}</v-list-tile-title>-->
+        <!--</v-list-tile>-->
+        <!--</v-list>-->
+        <!--</v-menu>-->
+        <!--<v-menu offset-y>-->
+        <!--<div slot="activator" class="drop-menu">-->
+        <!--<img width="30px" height="30px" src="/static/img/user-7.jpg" class="rounded-circle">-->
+        <!--<span>Gregory A.</span>-->
+        <!--</div>-->
+        <!--<v-list>-->
+        <!--<v-list-tile to="/users/user-profile">-->
+        <!--<v-icon class="mr-3 font-lg text-gray">ti-user</v-icon>-->
+        <!--<v-list-tile-title>View Profile</v-list-tile-title>-->
+        <!--</v-list-tile>-->
+        <!--<v-list-tile to="/inbox">-->
+        <!--<v-icon class="mr-3 font-lg text-gray">ti-email</v-icon>-->
+        <!--<v-list-tile-title>Inbox</v-list-tile-title>-->
+        <!--</v-list-tile>-->
+        <!--<v-list-tile to="/users/users-list">-->
+        <!--<v-icon class="mr-3 font-lg text-gray">ti-bell</v-icon>-->
+        <!--<v-list-tile-title>Users List</v-list-tile-title>-->
+        <!--</v-list-tile>-->
+        <!--<v-list-tile to="/session/login">-->
+        <!--<v-icon class="mr-3 font-lg text-gray">ti-power-off</v-icon>-->
+        <!--<v-list-tile-title @click.prevent="logout">Log Out</v-list-tile-title>-->
+        <!--</v-list-tile>-->
+        <!--</v-list>-->
+        <!--</v-menu>-->
+
       </div>
     </v-toolbar>
     <!-- Chat Searchbar -->

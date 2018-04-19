@@ -17,7 +17,7 @@ import Transaction from '@/views/BackOffice/Transaction'
 import WeatherStation from '@/views/BackOffice/WeatherStation'
 import WorldMap from '@/views/FrontOffice/worldMap'
 import CountrydMap from '@/views/FrontOffice/countryMap'
-import Pricing from '@/views/FrontOffice/Pricing'
+import Pricing from '@/views/FrontOffice/pricing'
 
 Vue.use(Router)
 
