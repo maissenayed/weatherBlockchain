@@ -51,11 +51,11 @@
                       <v-icon x-large class="blue--text text--lighten-2">&#xE430;</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
-                      <div class="headline text-xs-center">Sanny day</div>
+                      <div class="headline text-xs-center">Real time</div>
                     </v-card-title>
                     <v-card-text>
 						You can get realtime informations about the weather anywhere you want we have stations located in more then 4500
-						places arround the world offer for companies an API to consume.
+						places arround the world offering valuable data for everyone.
                     </v-card-text>
                   </v-card>
                 </v-flex>
@@ -65,11 +65,11 @@
                       <v-icon x-large class="blue--text text--lighten-2">&#xE3E7;</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
-                      <div class="headline">thunder day</div>
+                      <div class="headline">User friendly</div>
                     </v-card-title>
                     <v-card-text>
-						We offer for companies an API to consume if they need this is awesome folks don't be affraid we don't byte, we eat in sunny day
-						and our api better then gooles or yahoo so buy frome our service weather anywhere you want we have stations located.
+						Our app displays organized data for all users combined with charts and a world map accessible through your token balance,
+                      it also enables you to manage your users , transactions and all the details concerning your weather stations.
                     </v-card-text>
                   </v-card>
                 </v-flex>
@@ -79,11 +79,11 @@
                       <v-icon x-large class="blue--text text--lighten-2">&#xE91C;</v-icon>
                     </v-card-text>
                     <v-card-title primary-title class="layout justify-center">
-                      <div class="headline text-xs-center">rainy day</div>
+                      <div class="headline text-xs-center">Secure</div>
                     </v-card-title>
                     <v-card-text>
-      					We have an admin dashboard tha allow him to manage raseberry pi annomesly and securely so our dabbs is awesome habblih
-      					and our api better then gooles or yahoo so buy frome our service.
+      					Powered by blockchain, Nammumu weather real time data app enables users to profit from the full potential offered by the
+                      blockchain technology combined with all the features in ethereum network through the metamask browser extension.
                     </v-card-text>
                   </v-card>
                 </v-flex>
@@ -96,16 +96,7 @@
       <section>
         <v-parallax src="../../../src/assets/section.jpg" height="380">
           <v-layout column align-center justify-center>
-            <div class="headline white--text mb-3 text-xs-center">Have a good day we hope you'r fine !</div>
-            <em>:)</em>
-            <v-btn
-              class="blue lighten-2 mt-5"
-              dark
-              large
-              href="/pre-made-themes"
-            >
-              GoodBy my friend
-            </v-btn>
+            <div class="headline white--text mb-3 text-xs-center">Have a good day we hope you're fine !</div>
           </v-layout>
         </v-parallax>
       </section>
@@ -124,9 +115,8 @@
                   <div class="headline">Company info</div>
                 </v-card-title>
                 <v-card-text>
-					A new start up specialized in web development guaranteeing users to access <b>realtime weather data</b>
-					however we want our users to try ethereum so we made a ÐApp for that and it's the best ÐApp ever with love from CEO 3ezzdin
-					and his minions charfeddin ,jabreddin and moheddin.
+					A new startup specialized in web development enabling users to access <b>realtime weather data</b>
+					within a ÐApp integrated with the ethereum blockchain technology with love from 270bytes team at ESPRIT.
                 </v-card-text>
               </v-card>
             </v-flex>
@@ -136,7 +126,7 @@
                   <div class="headline">Contact us</div>
                 </v-card-title>
                 <v-card-text>
-                 PLEASE ,don't let us know if you need anything
+                 You can contact us through multiple channels
                 </v-card-text>
                 <v-list class="transparent">
                   <v-list-tile>
