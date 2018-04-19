@@ -45,8 +45,7 @@
                               color="grey"
                               :clearable="ok"
                               item-value="text"
-                              @change="getCoords"
-                            >
+                              @change="getCoords">
                             </v-select>
                           </v-flex>
                         </v-layout>
@@ -123,9 +122,9 @@
       return {
         search: '',
         stateAndCountry: {},
-        WEATHERSTATION_URL: 'http://localhost:3030/weatherstation',
-        COUNTRYAPI_URL: 'http://localhost:3030/country',
-        STATEAPI_URL: 'http://localhost:3030/state',
+        WEATHERSTATION_URL: '/weatherStation',
+        COUNTRYAPI_URL: '/country',
+        STATEAPI_URL: '/state',
         countries_list: [],
         states_list: [],
         weatherStations: [],
@@ -190,19 +189,15 @@
       getCoords(newVal) {
         var self = this;
         if (newVal.state === undefined) {
-
-          axios.get(this.STATEAPI_URL + '/' + newVal)
+          axios.get(self.STATEAPI_URL + '/' + newVal)
             .then(function (response) {
+
               newVal = {text: newVal, _id: response.data._id, country: response.data.country}
               self.stateAndCountry.state = newVal.text;
               self.stateAndCountry.state_id = newVal._id;
               self.stateAndCountry.country = newVal.country;
-              console.log(newVal)
-              var GEOCODE_API = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD5PrQC4WPoZRSi7waFLcOj9EF1V3bMrXc&sensor=false&components='
-                + 'country:' + self.stateAndCountry.country + '&address=' + self.stateAndCountry.state + '';
 
-
-              axios.get(GEOCODE_API)
+              axios.get(self.STATEAPI_URL + '/gmap/' + self.stateAndCountry.country + '/' + self.stateAndCountry.state)
                 .then(function (response) {
                   self.editedItem.coord[0].lng = response.data.results[0].geometry.location.lng;
                   self.editedItem.coord[0].lat = response.data.results[0].geometry.location.lat;
@@ -217,10 +212,8 @@
         else {
           self.stateAndCountry.state = newVal.state;
           self.stateAndCountry.state_id = newVal._id;
-          var GEOCODE_API = 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyD5PrQC4WPoZRSi7waFLcOj9EF1V3bMrXc&sensor=false&components='
-            + 'country:' + self.stateAndCountry.country + '&address=' + self.stateAndCountry.state + '';
 
-          axios.get(GEOCODE_API)
+          axios.get(self.STATEAPI_URL + '/gmap/' + self.stateAndCountry.country + '/' + self.stateAndCountry.state)
             .then(function (response) {
               self.editedItem.coord[0].lng = response.data.results[0].geometry.location.lng;
               self.editedItem.coord[0].lat = response.data.results[0].geometry.location.lat;
@@ -234,7 +227,7 @@
         var self = this;
         self.stateAndCountry.country = newVal.isoCode;
         var GETSTATESBYCOUNTRY_API = '';
-        console.log(newVal.text === undefined);
+
         if (newVal.text === undefined) {
           var GETCOUNTRYBYISO = self.COUNTRYAPI_URL + '/' + newVal;
           axios.get(GETCOUNTRYBYISO)
@@ -342,9 +335,13 @@
               /*response.data.state=[{
                   name:wsFromForm.state
               }];*/
-              console.log(response.data);
-              // this.stateAndCountry.state
-              this.items.splice(this.editedIndex, 1, response.data);
+              axios.get(self.WEATHERSTATION_URL)
+                .then(function (response) {
+                  self.weatherStations = response.data;
+                  self.initialize();
+                })
+                .catch((error) => {
+                });
             })
             .catch(function (error) {
               console.log(error);
@@ -358,6 +355,13 @@
                 name: this.stateAndCountry.state
               }];
               this.items.push(wsFromForm);
+              axios.get(self.WEATHERSTATION_URL)
+                .then(function (response) {
+                  self.weatherStations = response.data;
+                  self.initialize();
+                })
+                .catch((error) => {
+                });
             })
             .catch(function (error) {
               console.log(error);
