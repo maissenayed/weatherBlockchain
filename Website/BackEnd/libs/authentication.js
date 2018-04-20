@@ -81,7 +81,7 @@ exports.registerUser = function(req, res, next){
 
     User.findOne({username: new RegExp('^'+username+'$', "i")}, function(err, existingUser){
         if(err){
-            res.status(422).send({error: 'dude'});
+            res.status(422).send({error: err});
         }
 
         if(existingUser){
@@ -99,7 +99,7 @@ exports.registerUser = function(req, res, next){
 
                 if(err){
                     console.log("dude2");
-                    return  res.status(422).send({error: 'dude2'});
+                    return  res.status(422).send({error: err});
                 }
                 let userInfo = setUserInfo(user);
                 let token = jwt.sign(userInfo,authConfig.jwtOptions.secretOrKey, {expiresIn: 10080});
