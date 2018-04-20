@@ -138,7 +138,7 @@
       adjustPriceTickets(){
         this.plans_eth[0].value = (1/this.eth_price) * this.plans[0].value  ;
         const contract = web3.eth.contract(abi).at(address);
-        contract.changeWeeKprice(web3.toWei(this.plans_eth[0].value),(err, res)=>{
+        contract.changeTicketprice(web3.toWei(this.plans_eth[0].value),(err, res)=>{
           if(err){
             console.log(err);
           }

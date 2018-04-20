@@ -39,7 +39,7 @@
                 </div>
                 <div class="app-footer">
                   <a href="javascript:;" class="btn btn-block btn-gradient-primary white--text"
-                     @click="topup(700000000000000, 10)">Buy now
+                     @click="topup(plans_eth[0].value, 10)">Buy now
                     ! </a>
                 </div>
               </div>
@@ -60,7 +60,7 @@
                 </div>
                 <div class="app-footer">
                   <a href="javascript:;" class="btn btn-block btn-gradient-success white--text"
-                     @click="topup(20000000000000000,'week')">Buy now ! </a>
+                     @click="topup(plans_eth[1].value,'week')">Buy now ! </a>
                 </div>
               </div>
             </v-flex>
@@ -80,7 +80,7 @@
                 </div>
                 <div class="app-footer">
                   <a href="javascript:;" class="btn btn-block btn-gradient-warning white--text"
-                     @click="topup(80000000000000000,'month')">Buy now ! </a>
+                     @click="topup(plans_eth[2].value,'month')">Buy now ! </a>
                 </div>
               </div>
             </v-flex>
@@ -92,10 +92,12 @@
   </div>
 </template>
 <script>
+  import axios from 'axios'
   import {default as Web3} from 'web3';
   import {EventBus} from '../../lib/eventBus';
   import Header from './header';
   import {abi,address} from './../../utils/configContract';
+
   export default {
     name: 'Pricing',
     props: {},
@@ -115,7 +117,9 @@
         from: '',
         gasUsed: '',
         to: '',
-        transactionHash: ''
+        transactionHash: '',
+        plans_eth : [{value:0},{value:0},{value:0}],
+        current_prices_api :'/api/price/eth'
       }
     },
     methods: {
@@ -124,6 +128,7 @@
         return web3.eth.contract(abi).at(address);
       },
       topup(ticket_price, nb_Ticket_Or_Type_Of_Offer) {
+        ticket_price = web3.toWei(ticket_price);
         var miniToken = this.initContract();
         //const address = '0x48a9ca6e6cc7e5664ccc746213b3e3e6bf88e23d';
         let price = 0;
@@ -202,9 +207,19 @@
     mounted() {
       if (typeof web3 !== 'undefined') {
         web3 = new Web3(web3.currentProvider);
+
       } else {
         console.log('No web3? You should consider trying MetaMask!');
       }
+    },
+    created(){
+      var self = this;
+      axios.get(self.current_prices_api)
+        .then(function (response) {
+          self.plans_eth = response.data;
+        })
+        .catch((error) => {
+        });
     }
   }
 </script>
